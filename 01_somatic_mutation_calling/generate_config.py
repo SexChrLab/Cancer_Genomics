@@ -8,7 +8,7 @@ data["fastq_path"] = "/data/CEM/shared/controlled_access/Beauty/"
 
 # all sample ids
 data["all_samples"] = []
-with open("samples_info.csv", "r") as f:
+with open("samples_info.csv", "r") as f: #TODO: update the path here
     for line in f:
         if not line.startswith("sampleID"):
             data["all_samples"].append(line.rstrip('\n').split(",")[0])
