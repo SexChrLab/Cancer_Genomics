@@ -25,7 +25,7 @@ rule multiqc_analysis:
 	input:
 		expand(
 			"raw_fastqc_results/{sample}_{read}_fastqc.html",
-			sample=config[""all_samples""],
+			sample=config["all_samples"],
 			read=["1", "2"])
 	output:
 		"raw_multiqc_results/multiqc_report.html"
