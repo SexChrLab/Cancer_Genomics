@@ -40,9 +40,8 @@ rule map:
     threads:
         4
     shell:
-        "bwa mem -t {threads} -R "
+        "bwa mem -t {params.threads} -R "
         "'@RG\\tID:{params.id}\\tSM:{params.sm}\\tLB:{params.lb}\\tPU:{params.pu}\\tPL:{params.pl}' "
-        "{input.ref} {input.fq_1} {input.fq_2} "
-        "| samblaster "
-        "| samtools fixmate -O bam - - | samtools sort "
+        "{input.ref} {input.fq_1} {input.fq_2}"
+        " | samtools fixmate -O bam - - | samtools sort "
         "-O bam -o {output}"
