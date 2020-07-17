@@ -27,7 +27,8 @@ for sample in data["all_samples"]:
     data.update(read_group_info)
 
 # add path to reference
-data["ref"] = "/data/CEM/shared/public_data/references/1000genomes_GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+data["ref_dir"] = "/data/CEM/shared/public_data/references/1000genomes_GRCh38_reference_genome"
+data["ref_basename"] = "GRCh38_full_analysis_set_plus_decoy_hla"
 
 with open("somatic_mutation_calling_config.json", "w") as outfile:
     json.dump(data, outfile)
