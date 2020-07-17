@@ -12,8 +12,8 @@ rule all:
 
 rule fastqc_analysis:
     input:
-        fq_1 = lambda wildcards: os.path.join(config["fastq_path"], config[wildcards.sample]["fq_1"]),
-        fq_2 = lambda wildcards: os.path.join(config["fastq_path"], config[wildcards.sample]["fq_2"])
+        fq_1 = "fastq_fixed/{sample}_1_fixed.fastq",
+        fq_2 = "fastq_fixed/{sample}_2_fixed.fastq"
     output:
         "raw_fastqc_results/{sample}_1_fastqc.html",
         "raw_fastqc_results/{sample}_2_fastqc.html"
@@ -38,8 +38,8 @@ rule multiqc_analysis:
 
 rule trim_adapters_paired_bbduk:
     input:
-        fq_1 = lambda wildcards: os.path.join(config["fastq_path"], config[wildcards.sample]["fq_1"]),
-        fq_2 = lambda wildcards: os.path.join(config["fastq_path"], config[wildcards.sample]["fq_2"])
+        fq_1 = "fastq_fixed/{sample}_1_fixed.fastq",
+        fq_2 = "fastq_fixed/{sample}_2_fixed.fastq"
     output:
         out_fq_1 = "trimmed_fastqs/{sample}_trimmed_read1.fastq.gz",
         out_fq_2 = "trimmed_fastqs/{sample}_trimmed_read2.fastq.gz"
