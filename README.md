@@ -16,3 +16,7 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
     1. Raw QC
     1. Trim
     1. Trimmed QC
+3. Mapping
+- Use the Snakefile `map.snakefile`
+    1. Prepare reference
+    1. Map
