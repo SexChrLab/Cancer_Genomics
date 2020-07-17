@@ -11,12 +11,15 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
     1. We generate a config file called `somatic_mutation_calling_config.json` that we will be using for this section
     1. `python generate_config.py`
     1. TODO before running: edit the information in the python script to reflect the accurate information for your samples
-2. Quality control
+2. Edit the fastq files
+- If the fastq files are downloaded from SRA, or if you encounter this message when running bwa: `paired reads have different names`
+- Use the Snakefile `fix_fastq_from_sra.snakefile`
+3. Quality control
 - Use the Snakefile `quality_control.snakefile`:
     1. Raw QC
     1. Trim
     1. Trimmed QC
-3. Mapping
+4. Mapping
 - Use the Snakefile `map.snakefile`
     1. Prepare reference
     1. Map
