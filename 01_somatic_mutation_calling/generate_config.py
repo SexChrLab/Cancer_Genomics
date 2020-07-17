@@ -18,8 +18,6 @@ for sample in data["all_samples"]:
     read_group_info = {}
     read_group_info[sample] = {"fq_1": sample + "_1.fastq",
         "fq_2": sample + "_2.fastq",
-        "fq_1_fixed": sample + "_1_fixed.fastq",
-        "fq_2_fixed": sample + "_2_fixed_fastq",
         "ID": sample,
         "SM": sample,
         "LB": sample,
