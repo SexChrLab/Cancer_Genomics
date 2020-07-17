@@ -7,21 +7,21 @@ rule all:
         os.path.join(config["ref_dir"], config["ref_basename"] + ".fa.fai"),
         os.path.join(config["ref_dir"], config["ref_basename"] + ".dict"),
         os.path.join(config["ref_dir"], config["ref_basename"] + ".fa.amb"),
-        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
+        expand(os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam"), sample=config["all_samples"])
 
 rule prep_refs:
-	input:
-		os.path.join(config["ref_dir"], config["ref_basename"] + ".fa")
-	output:
+    input:
+        os.path.join(config["ref_dir"], config["ref_basename"] + ".fa")
+    output:
         fai = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa.fai"),
         dict = os.path.join(config["ref_dir"], config["ref_basename"] + ".dict"),
         amb = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa.amb")
-	shell:
-		"""
-		samtools faidx {input};
-		samtools dict -o {output.dict} {input};
-		bwa index {input}
-		"""
+    shell:
+        """
+        samtools faidx {input};
+        samtools dict -o {output.dict} {input};
+        bwa index {input}
+        """
 
 rule map:
     input:
