@@ -7,7 +7,7 @@ rule all:
         expand("pileups/{sample}.pileup", sample=config["all_samples"]), #run bam_pileup
         expand("intermediate_files/{subject}.varscan.snp", subject=config["all_subjects"]), #run VarScan
         expand("intermediate_files/{subject}.varscan.indel", subject=config["all_subjects"]), #run VarScan
-        expand("varscan/{subject}.varscan.variants.filter.pass") #filter
+        expand("varscan/{subject}.varscan.variants.filter.pass", subject=config["all_subjects"]) #filter
 
 rule bam_pileup: #for both normal and tumor
     input:
