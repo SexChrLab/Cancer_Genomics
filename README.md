@@ -2,6 +2,10 @@
 Assembling pipelines for our cancer genomics work. This includes neoepitope identification, and sex difference analyses.
 
 ## Conda environment
+
+## Packages for download:
+1. VarScan
+  1. Download VarScan version 2.3.9 here: https://sourceforge.net/projects/varscan/files/
 ## 00_misc
 - This directory contains miscellaneous files needed to run the program
 1. `samples_info.csv`: this is a csv file with 3 columns: sampleID, tissue, and type (normal or tumor). #TODO: add DNA or RNA information.

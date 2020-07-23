@@ -26,6 +26,7 @@ with open("/scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv", "r") as f
 for i in all_subjects:
     data["all_subjects"].append(i)
 
+# add information about normal and tumor
 for i in subjectID_normal_tumor_info:
     info = {}
     info[i] = {"normal": subjectID_normal_tumor_info[i][0],
@@ -45,12 +46,12 @@ for sample in data["all_samples"]:
 
     data.update(read_group_info)
 
-# add information about normal and tumor
-
-
 # add path to reference
 data["ref_dir"] = "/data/CEM/shared/public_data/references/1000genomes_GRCh38_reference_genome"
 data["ref_basename"] = "GRCh38_full_analysis_set_plus_decoy_hla"
+
+# add path to software
+data["varscan_path"] = "/home/tphung3/softwares/VarScan.v2.3.9.jar"
 
 with open("somatic_mutation_calling_config.json", "w") as outfile:
     json.dump(data, outfile)
