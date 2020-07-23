@@ -53,6 +53,7 @@ data["ref_basename"] = "GRCh38_full_analysis_set_plus_decoy_hla"
 # add path to software
 data["varscan_path"] = "/home/tphung3/softwares/VarScan.v2.3.9.jar"
 data["gatk_path"] = "/home/tphung3/softwares/gatk-4.1.8.1/gatk"
+data["strelka"] = "/home/tphung3/softwares/miniconda3/envs/cancer/share/strelka-2.9.10-0/bin/configureStrelkaSomaticWorkflow.py"
 data["bam-readcount"] = "/home/tphung3/softwares/bam-readcount"
 data["perl_fp_filter"] = "/home/tphung3/softwares/fpfilter-2.pl"
 
