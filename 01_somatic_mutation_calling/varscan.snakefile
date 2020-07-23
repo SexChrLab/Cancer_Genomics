@@ -83,7 +83,7 @@ rule readcount:
         bamreadcount = config["bam-readcount"]
     shell:
         """
-        {params.bamreadcount} -q 1 -b 20 -f {input.fa} -l {input.snp_somatic_hc_filter_bed} {input.tumor_bam} > {output.readcounts}
+        {params.bamreadcount} -q 1 -b 20 -f {input.ref} -l {input.snp_somatic_hc_filter_bed} {input.tumor_bam} > {output.readcounts}
         """
 
 rule perl_filter:
