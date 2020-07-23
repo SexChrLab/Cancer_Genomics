@@ -76,7 +76,7 @@ rule readcount:
     input:
         ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
         snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.somatic.hc.filter.bed",
-        tumor_bam = lambda wildcards: os.path.join("processed_bams/", config[wildcards.subject]["tumor"] + config["ref_basename"] + ".sorted.chr21.bam")
+        tumor_bam = lambda wildcards: os.path.join("processed_bams/", config[wildcards.subject]["tumor"] + "."+ config["ref_basename"] + ".sorted.chr21.bam")
     output:
         readcounts = "varscan/{subject}.readcounts"
     params:
