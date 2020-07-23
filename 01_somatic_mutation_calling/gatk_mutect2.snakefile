@@ -20,7 +20,7 @@ rule tumor_with_matched_normal:
         sm = lambda wildcards: config[wildcards.subject]["normal"]
     shell:
         """
-        {params.gatk} -R {input.ref} -I {input.tumor_bam} -I {input.normal_bam} -normal {params.sm} -O {output}
+        {params.gatk} Mutect2 -R {input.ref} -I {input.tumor_bam} -I {input.normal_bam} -normal {params.sm} -O {output}
         """
 
 rule filter:
