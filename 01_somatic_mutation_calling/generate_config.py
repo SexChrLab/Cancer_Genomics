@@ -10,14 +10,21 @@ data["fastq_path"] = "/data/CEM/shared/controlled_access/Beauty/"
 # all sample ids
 data["all_samples"] = []
 
+all_subjects = set()
+data["all_subjects"] = []
+
 subjectID_normal_tumor_info = defaultdict(list)
 with open("/scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv", "r") as f: #TODO: update the path here
     for line in f:
         if not line.startswith("subjectID"):
             items = line.rstrip("\n").split(",")
             data["all_samples"].append(items[1])
+            all_subjects.add(items[0])
 
             subjectID_normal_tumor_info[items[0]].append(items[1]) #Assuming that normal is before tumor
+
+for i in all_subjects:
+    data["all_subjects"].append(i)
 
 for i in subjectID_normal_tumor_info:
     info = {}
