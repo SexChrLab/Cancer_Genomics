@@ -1,4 +1,5 @@
 import json
+from collections import defaultdict
 import os
 
 data = {}
@@ -8,10 +9,20 @@ data["fastq_path"] = "/data/CEM/shared/controlled_access/Beauty/"
 
 # all sample ids
 data["all_samples"] = []
+
+subjectID_normal_tumor_info = {}
 with open("/scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv", "r") as f: #TODO: update the path here
     for line in f:
-        if not line.startswith("sampleID"):
-            data["all_samples"].append(line.rstrip('\n').split(",")[0])
+        if not line.startswith("subjectID"):
+            items = line.rstrip("\n").split(",")
+            data["all_samples"].append(items[1])
+
+            subjectID_normal_tumor_info[items[0]].append(items[3]) #Assuming that normal is before tumor
+
+for i in subjectID_normal_tumor_info:
+    i = {"normal": subjectID_normal_tumor_info[i][0],
+         "tumor": subjectID_normal_tumor_info[i][1]}
+    data.update(i)
 
 # populate read group information for each sample
 for sample in data["all_samples"]:
@@ -25,6 +36,9 @@ for sample in data["all_samples"]:
         "PL": "Illumina"}
 
     data.update(read_group_info)
+
+# add information about normal and tumor
+
 
 # add path to reference
 data["ref_dir"] = "/data/CEM/shared/public_data/references/1000genomes_GRCh38_reference_genome"
