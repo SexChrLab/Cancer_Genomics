@@ -52,6 +52,7 @@ data["ref_basename"] = "GRCh38_full_analysis_set_plus_decoy_hla"
 
 # add path to software
 data["varscan_path"] = "/home/tphung3/softwares/VarScan.v2.3.9.jar"
+data["gatk_path"] = "/home/tphung3/softwares/gatk-4.1.8.1/gatk"
 
 with open("somatic_mutation_calling_config.json", "w") as outfile:
     json.dump(data, outfile)
