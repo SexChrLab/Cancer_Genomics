@@ -12,7 +12,7 @@ rule all:
 rule bam_pileup: #for both normal and tumor
     input:
         ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
-        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.chr21.bam")
+        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
     output:
         pileup = "varscan/pileups/{sample}.pileup"
     threads: 4
@@ -76,7 +76,7 @@ rule readcount:
     input:
         ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
         snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.Somatic.hc.filter.bed",
-        tumor_bam = lambda wildcards: os.path.join("processed_bams/", config[wildcards.subject]["tumor"] + "."+ config["ref_basename"] + ".sorted.chr21.bam")
+        tumor_bam = lambda wildcards: os.path.join("processed_bams/", config[wildcards.subject]["tumor"] + "."+ config["ref_basename"] + ".sorted.bam")
     output:
         readcounts = "varscan/{subject}.readcounts"
     params:
