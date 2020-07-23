@@ -17,12 +17,13 @@ with open("/scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv", "r") as f
             items = line.rstrip("\n").split(",")
             data["all_samples"].append(items[1])
 
-            subjectID_normal_tumor_info[items[0]].append(items[3]) #Assuming that normal is before tumor
+            subjectID_normal_tumor_info[items[0]].append(items[1]) #Assuming that normal is before tumor
 
 for i in subjectID_normal_tumor_info:
-    i = {"normal": subjectID_normal_tumor_info[i][0],
+    info = {}
+    info[i] = {"normal": subjectID_normal_tumor_info[i][0],
          "tumor": subjectID_normal_tumor_info[i][1]}
-    data.update(i)
+    data.update(info)
 
 # populate read group information for each sample
 for sample in data["all_samples"]:
