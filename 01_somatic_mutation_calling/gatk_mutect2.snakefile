@@ -4,7 +4,8 @@ configfile: "somatic_mutation_calling_config.json"
 
 rule all:
     input:
-        expand(os.path.join("gatk_mutect2/", "{subject}.somatic.vcf.gz"), subject=config["all_subjects"])
+        expand(os.path.join("gatk_mutect2/", "{subject}.somatic.vcf.gz"), subject=config["all_subjects"]),
+        expand(os.path.join("gatk_mutect2/", "{subject}.somatic.filtered.vcf.gz"), subject=config["all_subjects"])
 
 rule tumor_with_matched_normal:
     input:
