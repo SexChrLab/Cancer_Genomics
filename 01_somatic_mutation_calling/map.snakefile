@@ -45,3 +45,5 @@ rule map:
         "{input.ref} {input.fq_1} {input.fq_2}"
         " | samtools fixmate -O bam - - | samtools sort "
         "-O bam -o {output}"
+
+# TODO: index bam
