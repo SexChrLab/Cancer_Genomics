@@ -10,7 +10,7 @@ data["fastq_path"] = "/data/CEM/shared/controlled_access/Beauty/"
 # all sample ids
 data["all_samples"] = []
 
-subjectID_normal_tumor_info = {}
+subjectID_normal_tumor_info = defaultdict(list)
 with open("/scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv", "r") as f: #TODO: update the path here
     for line in f:
         if not line.startswith("subjectID"):
