@@ -41,7 +41,7 @@ rule isolate_calls_by_type_and_confidence:
     input:
         varscan_snp = "varscan/{subject}.varscan.snp"
     output:
-        varscan_snp = "varscan/{subject}.varscan.snp.somatic.hc"
+        varscan_snp = "varscan/{subject}.varscan.snp.Somatic.hc"
     params:
         varscan = config["varscan_path"]
     shell:
@@ -51,10 +51,10 @@ rule isolate_calls_by_type_and_confidence:
 
 rule somatic_filter:
     input:
-        snp_somatic_hc = "varscan/{subject}.varscan.snp.somatic.hc",
+        snp_somatic_hc = "varscan/{subject}.varscan.snp.Somatic.hc",
         indel = "varscan/{subject}.varscan.indel"
     output:
-        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.somatic.hc.filter"
+        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.Somatic.hc.filter"
     params:
         varscan = config["varscan_path"]
     shell:
@@ -64,9 +64,9 @@ rule somatic_filter:
 
 rule convert_to_bed_fmt:
     input:
-        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.somatic.hc.filter"
+        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.Somatic.hc.filter"
     output:
-        snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.somatic.hc.filter.bed"
+        snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.Somatic.hc.filter.bed"
     shell:
         """
         awk -F "\t" '{{print $1 "\t" $2 "\t" $2 }}' {input.snp_somatic_hc_filter} | tail -n+2 > {output.snp_somatic_hc_filter_bed}
@@ -75,7 +75,7 @@ rule convert_to_bed_fmt:
 rule readcount:
     input:
         ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
-        snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.somatic.hc.filter.bed",
+        snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.Somatic.hc.filter.bed",
         tumor_bam = lambda wildcards: os.path.join("processed_bams/", config[wildcards.subject]["tumor"] + "."+ config["ref_basename"] + ".sorted.chr21.bam")
     output:
         readcounts = "varscan/{subject}.readcounts"
@@ -88,7 +88,7 @@ rule readcount:
 
 rule perl_filter:
     input:
-        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.somatic.hc.filter",
+        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.Somatic.hc.filter",
         readcounts = "varscan/{subject}.readcounts"
     output:
         out = "varscan/{subject}.varscan.variants.filter.pass"
