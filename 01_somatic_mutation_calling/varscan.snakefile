@@ -32,7 +32,7 @@ rule run_varscan:
         indel = "varscan/{subject}.varscan.indel"
     params:
         varscan = config["varscan_path"],
-        basename = "intermediate_files/{subject}.varscan"
+        basename = "varscan/{subject}.varscan"
     threads: 4
     shell:
         "java -jar {params.varscan} somatic {input.normal_pileup} {input.tumor_pileup} {params.basename} –min-coverage 10 –min-var-freq 0.08 –somatic-p-value 0.05"
