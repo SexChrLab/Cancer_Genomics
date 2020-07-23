@@ -36,7 +36,7 @@ rule run:
         snvs = "strelka/{subject}/results/variants/somatic.snvs.vcf.gz",
         indels = "strelka/{subject}/results/variants/somatic.indels.vcf.gz"
     params:
-        run = "strelka/{subject}/runWorkflow.py"
+        run = "/scratch/tphung3/Cancer_Genomics/01_somatic_mutation_calling/strelka/{subject}/runWorkflow.py"
     shell:
         """
         {params.run} -m local -j 20
