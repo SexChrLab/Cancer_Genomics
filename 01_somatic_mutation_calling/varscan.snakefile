@@ -99,3 +99,13 @@ rule perl_filter:
         """
         perl {params.perlfilter} {input.snp_somatic_hc_filter} {input.readcounts} --output-basename {params.basename}
         """
+
+rule convert_to_vcf:
+    input:
+        "varscan/{subject}.varscan.variants.filter.pass"
+    output:
+        "varscan/{subject}.varscan.variants.filter.pass.vcf"
+    shell:
+        """
+        python /home/tphung3/softwares/VarScan2_format_converter.py {input} > {output}
+        """
