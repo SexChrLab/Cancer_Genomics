@@ -15,9 +15,9 @@ rule all:
 rule config:
     input:
         normal_bam = lambda wildcards: os.path.join(
-			"processed_bams/", config[wildcards.subject]["normal"] + "." + config["ref_basename"] + ".sorted.chr21.bam"),
+			"processed_bams/", config[wildcards.subject]["normal"] + "." + config["ref_basename"] + ".sorted.bam"),
         tumor_bam = lambda wildcards: os.path.join(
-			"processed_bams/", config[wildcards.subject]["tumor"] + "." + config["ref_basename"] + ".sorted.chr21.bam"),
+			"processed_bams/", config[wildcards.subject]["tumor"] + "." + config["ref_basename"] + ".sorted.bam"),
         ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa")
     output:
         "strelka/{subject}/runWorkflow.py"
@@ -32,9 +32,9 @@ rule config:
 rule run:
     input:
         normal_bam = lambda wildcards: os.path.join(
-			"processed_bams/", config[wildcards.subject]["normal"] + "." + config["ref_basename"] + ".sorted.chr21.bam"),
+			"processed_bams/", config[wildcards.subject]["normal"] + "." + config["ref_basename"] + ".sorted.bam"),
         tumor_bam = lambda wildcards: os.path.join(
-			"processed_bams/", config[wildcards.subject]["tumor"] + "." + config["ref_basename"] + ".sorted.chr21.bam"),
+			"processed_bams/", config[wildcards.subject]["tumor"] + "." + config["ref_basename"] + ".sorted.bam"),
         ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa")
     output:
         snvs = "strelka/{subject}/results/variants/somatic.snvs.vcf.gz",

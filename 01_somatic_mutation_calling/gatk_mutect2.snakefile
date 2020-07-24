@@ -11,9 +11,9 @@ rule tumor_with_matched_normal:
     input:
         ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
         normal_bam = lambda wildcards: os.path.join(
-			"processed_bams/", config[wildcards.subject]["normal"] + "." + config["ref_basename"] + ".sorted.chr21.bam"),
+			"processed_bams/", config[wildcards.subject]["normal"] + "." + config["ref_basename"] + ".sorted.bam"),
         tumor_bam = lambda wildcards: os.path.join(
-			"processed_bams/", config[wildcards.subject]["tumor"] + "." + config["ref_basename"] + ".sorted.chr21.bam")
+			"processed_bams/", config[wildcards.subject]["tumor"] + "." + config["ref_basename"] + ".sorted.bam")
     output:
         os.path.join("gatk_mutect2/", "{subject}.somatic.vcf.gz")
     params:
