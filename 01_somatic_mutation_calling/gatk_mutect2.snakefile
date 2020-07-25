@@ -5,7 +5,8 @@ configfile: "somatic_mutation_calling_config.json"
 rule all:
     input:
         expand(os.path.join("gatk_mutect2/", "{subject}.somatic.vcf.gz"), subject=config["all_subjects"]),
-        expand(os.path.join("gatk_mutect2/", "{subject}.somatic.filtered.vcf.gz"), subject=config["all_subjects"])
+        expand(os.path.join("gatk_mutect2/", "{subject}.somatic.filtered.vcf.gz"), subject=config["all_subjects"]),
+        expand(os.path.join("gatk_mutect2/", "{subject}.somatic.filtered.pass.vcf.gz"), subject=config["all_subjects"])
 
 rule tumor_with_matched_normal:
     input:
@@ -35,4 +36,17 @@ rule filter:
     shell:
         """
         {params.gatk} FilterMutectCalls -R {input.ref} -V {input.unfiltered} -O {output.filtered}
+        """
+
+rule select_pass_variants:
+    input:
+        ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
+        vcf = os.path.join("gatk_mutect2/", "{subject}.somatic.filtered.vcf.gz")
+    output:
+        os.path.join("gatk_mutect2/", "{subject}.somatic.filtered.pass.vcf.gz")
+    params:
+        gatk = config["gatk_path"]
+    shell:
+        """
+        {params.gatk} SelectVariants -R {input.ref} -V {input.vcf} --exclude-filtered -O {output}
         """
