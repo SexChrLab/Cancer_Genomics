@@ -35,3 +35,47 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 
 ## 02_variant_annotation
 1. Prepare file as input to the program Variant Effect Predictor (VEP)
+- Script `prepare_input_for_vep.py`
+    ```
+    python prepare_input_for_vep.py --vcf_filenames {/input/full/path/to/vcf/files/} --vep_format_fn {/input/full/path/to/output/vep/file} 
+    ```
+- This script takes in one or more than one vcf files. If you have more than one VCF file, please separate them by comma
+- If there's just one vcf file as input, the script converts the variant in VCF file format to format that can be used for VEP:
+    - Column 1: chromosome name
+    - Column 2: Position
+    - Column 3 : "."
+    - Column 4: reference nucleotide
+    - Column 5: alternate nucleotide
+    - Column 6, 7, and 8: "."
+- If there are more than one vcf files as input, the script selects the variants that are shared in at least 2 vcf files, before converting the variant in VCF file format to the format mentioned above. 
+- This script also automatically outputs a file called `number_of_variants_summary.txt` that list the number of variants per vcf file (if there are more than 1 vcf files) and the number of variants that are shared in at least 2 vcf files 
+
+2. Run Variant Effect Predictor (VEP)
+- See script `run_vep.sh` for direction on how to run vep. 
+
+## 03_generate_peptide
+- We utilize pvacseq (https://anaconda.org/bioconda/pvacseq) to generate peptide. An example command is:
+    ```
+    pvacseq generate_protein_fasta {/input/to/vep/vcf/} 9 {output}
+    ```
+- Because the program netMHCpan truncates the name of the transcripts in its output, in order to retain the transcript name information in the netMHCpan outputs, we modify the output from pvacseq using this command:
+    ```
+    cat {input.peptides} | grep -A 1 ">MT" | sed '/--/d' | sed 's/MT.*ENS//' > {output.peptides_formatted}
+    ```
+
+## 04_filtering_peptide
+- We are using the following directory structure
+- Example: results/Test/HLA-A01:01/9_mers/
+- Run netMHCpan example:
+    ```
+    netMHCpan -a HLA-A01:01 -f ../03_generate_peptides/test_vep_9mers_fmt.txt -BA -s -xls -l 9  -xlsfile results/Test/HLA-A01\:01/9_mers/netmhc.xsl
+    ```
+- Run netMHCstabpan example:
+    ```
+    netMHCstabpan -a HLA-A01:01 -f ../03_generate_peptides/test_vep_9mers_fmt.txt -s -xls -l 9  -xlsfile results/Test/HLA-A01\:01/9_mers/netmhcstab.xsl
+    ```
+  
+- Currently (as of November 2020), we are using the thresholds defined for binding affinity, binding stability, and tumor abundance as suggested by Wells et al. (2020) (https://pubmed.ncbi.nlm.nih.gov/33038342/). The repository for the filtering is here: https://github.com/tanyaphung/neoantigens_prioritization. For this example, we do not have RNAseq data, so we are filtering based on binding affinity and binding stability alone. This is how to run the script:
+    ```
+    python neoepitope_prediction.py --hla_types_fn results/Test/hla.txt --sample_id Test --mers 9 --data_dir results/
+    ```
