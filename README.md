@@ -2,6 +2,7 @@
 Assembling pipelines for our cancer genomics work. This includes neoepitope identification, and sex difference analyses.
 
 ## Conda environment
+- The yml file for the environment (`cancer_genomics_environment.yml`) is located under 00_misc.
 
 ## Packages for download:
 1. VarScan
