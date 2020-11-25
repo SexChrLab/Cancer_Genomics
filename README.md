@@ -6,20 +6,33 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 
 ## Packages for download:
 1. VarScan
-  1. Download VarScan version 2.3.9 here: https://sourceforge.net/projects/varscan/files/
+    - Download VarScan version 2.3.9 here: https://sourceforge.net/projects/varscan/files/
 2. GATK
-    1. `wget https://github.com/broadinstitute/gatk/releases/download/4.1.8.1/gatk-4.1.8.1.zip`
+    - wget https://github.com/broadinstitute/gatk/releases/download/4.1.8.1/gatk-4.1.8.1.zip`
+3. Strelka:
+    - See: https://github.com/Illumina/strelka
+    
+## External scripts:
+- External scripts are located in the directory `external_scripts`
+
 ## 00_misc
 - This directory contains miscellaneous files needed to run the program
 1. `samples_info.csv`: this is a csv file with 3 columns: sampleID, tissue, and type (normal or tumor). TODO: add DNA or RNA information.
 2. `adapter_sequence.fa`
 ## 01_somatic_mutation_calling
 1. Generate a config file:
-    - We generate a config file called `somatic_mutation_calling_config.json` that we will be using for this section
+    - We generate a config file called `somatic_mutation_calling_config.json` that we will be using for this section. An example of how to run this script:
         ```
-        python generate_config.py
+        python generate_config.py --fastq_path /data/CEM/shared/controlled_access/Beauty/
+                                  --sample_info /scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv
+                                  --ref_dir /data/CEM/shared/public_data/references/1000genomes_GRCh38_reference_genome
+                                  --ref_basename GRCh38_full_analysis_set_plus_decoy_hla
+                                  --varscan_path /home/tphung3/softwares/VarScan.v2.3.9.jar
+                                  --gatk_path /home/tphung3/softwares/gatk-4.1.8.1/gatk 
+                                  --strelka /home/tphung3/softwares/miniconda3/envs/cancer/share/strelka-2.9.10-0/bin/configureStrelkaSomaticWorkflow.py
+                                  --bam_readcount /home/tphung3/softwares/bam-readcount
+                                  --perl_fp_filter /home/tphung3/softwares/fpfilter-2.pl
         ```
-    - Before running: edit the information in the python script to reflect the accurate information for your samples
 2. Quality control
     - Use the Snakefile `quality_control.snakefile`:
         1. Raw QC
