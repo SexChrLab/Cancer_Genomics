@@ -3,6 +3,10 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 
 ## Conda environment
 - The yml file for the environment (`cancer_genomics_environment.yml`) is located under 00_misc.
+- Create the conda environment:
+    ```
+    conda env create -f cancer_genomics_environment.yml
+    ```
 
 ## Packages for download:
 1. VarScan
@@ -21,7 +25,7 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 2. `adapter_sequence.fa`
 ## 01_somatic_mutation_calling
 1. Generate a config file:
-    - We generate a config file called `somatic_mutation_calling_config.json` that we will be using for this section. An example of how to run this script:
+    - We generate a config file called `somatic_mutation_calling_config.json` that we will be using for this section. Below is an example of how to run this script. **You need to change the path to the files as appropriate.**
         ```
         python generate_config.py --fastq_path /data/CEM/shared/controlled_access/Beauty/
                                   --sample_info /scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv
@@ -38,6 +42,7 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
         1. Raw QC
         1. Trim
         1. Trimmed QC
+    - **You need to edit lines 5-6 of the snakefile to point to the appropriate path to the adaptor sequence and perl lib for your system.**
     4. Mapping
     - Use the Snakefile `map.snakefile`
         1. Prepare reference
