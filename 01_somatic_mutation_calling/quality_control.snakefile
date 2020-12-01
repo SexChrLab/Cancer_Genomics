@@ -2,7 +2,8 @@ import os
 
 configfile: "somatic_mutation_calling_config.json"
 
-adapter_path = "/scratch/tphung3/Cancer_Genomics/00_misc/adapter_sequence.fa" #TODO: update the path to adaptor sequence
+adapter_path = "/scratch/tphung3/Cancer_Genomics/00_misc/adapter_sequence.fa"
+perl5lib_path = "/home/tphung3/softwares/miniconda3/envs/epitopepipeline/lib/site_perl/5.26.2/"
 
 rule all:
     input:
@@ -17,10 +18,12 @@ rule fastqc_analysis:
     output:
         "raw_fastqc_results/{sample}_1_fastqc.html",
         "raw_fastqc_results/{sample}_2_fastqc.html"
+    params:
+        perl5lib = perl5lib_path
     shell:
         """
-        PERL5LIB=/home/tphung3/softwares/miniconda3/envs/epitopepipeline/lib/site_perl/5.26.2/ fastqc -o raw_fastqc_results {input.fq_1};
-        PERL5LIB=/home/tphung3/softwares/miniconda3/envs/epitopepipeline/lib/site_perl/5.26.2/ fastqc -o raw_fastqc_results {input.fq_2}
+        PERL5LIB={params.perl5lib} fastqc -o raw_fastqc_results {input.fq_1};
+        PERL5LIB={params.perl5lib} fastqc -o raw_fastqc_results {input.fq_2}
         """
 
 rule multiqc_analysis:
@@ -59,8 +62,8 @@ rule trimmed_fastqc_analysis:
         fq2_fastqc = "trimmed_fastqc_results/{sample}_trimmed_read2_fastqc.html"
     shell:
         """
-        PERL5LIB=/home/tphung3/softwares/miniconda3/envs/epitopepipeline/lib/site_perl/5.26.2/ fastqc -o trimmed_fastqc_results {input.fq_1};
-        PERL5LIB=/home/tphung3/softwares/miniconda3/envs/epitopepipeline/lib/site_perl/5.26.2/ fastqc -o trimmed_fastqc_results {input.fq_2}
+        PERL5LIB={params.perl5lib} fastqc -o trimmed_fastqc_results {input.fq_1};
+        PERL5LIB={params.perl5lib} fastqc -o trimmed_fastqc_results {input.fq_2}
         """
 
 rule trimmed_multiqc_analysis:
