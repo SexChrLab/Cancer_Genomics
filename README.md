@@ -98,3 +98,7 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
     ```
     python neoepitope_prediction.py --hla_types_fn results/Test/hla.txt --sample_id Test --mers 9 --data_dir results/
     ```
+  
+## HLA typing
+- Can use HLA-LA for HLA typing.
+- Refer to the HLA-LA repo (https://github.com/DiltheyLab/HLA-LA) for details on how to get it running.  
