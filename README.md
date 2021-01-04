@@ -51,6 +51,8 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 3. Variant calling
     - We use three programs for variant calling: VarScan, GATK Mutect2, and Strelka
     - Snakefiles: `varscan.snakefile`, `gatk_mutect2.snakefile`, and `strelka.snakefile`.
+    - **Need to edit line 123 of varscan.snakefile to have your own version of VarScan2_format_converter.py. Can be obtained from: https://gist.github.com/PoisonAlien/be1af2a53d5d7bbe2c7a#file-varscan2_format_converter-py** 
+    - **Need to edit line 43 of strelka.snakefile to have the appropriate user name on the scratch directory and 92 to appropriate miniconda directory**
 
 ## 02_variant_annotation
 1. Prepare file as input to the program Variant Effect Predictor (VEP)
@@ -58,7 +60,8 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
     ```
     python prepare_input_for_vep.py --vcf_filenames {/input/full/path/to/vcf/files/} --vep_format_fn {/input/full/path/to/output/vep/file} 
     ```
-- This script takes in one or more than one vcf files. If you have more than one VCF file, please separate them by comma
+- This script takes in one or more than one vcf files. If you have more than one VCF file, please separate them by a comma and no space
+- GATK file will need to be unzipped using gunzip {filename} before running `prepare_input_for_vep.py`
 - If there's just one vcf file as input, the script converts the variant in VCF file format to format that can be used for VEP:
     - Column 1: chromosome name
     - Column 2: Position
