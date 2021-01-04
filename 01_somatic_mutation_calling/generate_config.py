@@ -54,7 +54,7 @@ for i in subjectID_normal_tumor_info:
     data.update(info)
 
 # populate read group information for each sample
-for sample in data["DNA"]:
+for sample in data["all_samples"]:
     read_group_info = {}
     read_group_info[sample] = {"fq_1": sample + "_1.fastq.gz",
         "fq_2": sample + "_2.fastq.gz",

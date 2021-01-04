@@ -85,8 +85,11 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
     ```
     cat {input.peptides} | grep -A 1 ">MT" | sed '/--/d' | sed 's/MT.*ENS//' > {output.peptides_formatted}
     ```
+## 04_expression
+- We utilize salmon for expression quantification (https://salmon.readthedocs.io/en/latest/salmon.html)
+- Need to have a salmon index and then change lines 13, 16, and 17. # To do: Add these directories to the config file to reduce hard coding
 
-## 04_filtering_peptide
+## 05_filtering_peptide
 - We are using the following directory structure
 - Example: results/Test/HLA-A01:01/9_mers/
 - Run netMHCpan example:
