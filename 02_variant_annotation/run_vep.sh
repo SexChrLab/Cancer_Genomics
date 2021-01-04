@@ -7,4 +7,6 @@
 #SBATCH -c 1
 #SBATCH -t 24:00:00
 
-PERL5LIB=/home/tphung3/softwares/miniconda3/envs/epitopepipeline/lib/site_perl/5.26.2/ perl ~/scratch/Mayo_breast_regional_heterogeneity/01_neoepitope/external_scripts/ensembl-tools-release-86/scripts/variant_effect_predictor/variant_effect_predictor.pl -i /scratch/tphung3/Cancer_Genomics/02_variant_annotation/test.csv --format vcf --cache --assembly GRCh38 --offline --vcf -o /scratch/tphung3/Cancer_Genomics/02_variant_annotation/test_vep.vcf  --force_overwrite --plugin Wildtype --dir_plugins /home/tphung3/.vep/Plugins --symbol --terms SO --plugin Downstream
+source activate var_call_env
+
+PERL5LIB=/packages/6x/vcftools/0.1.12b/lib/per15/site_perl/ vep -i /scratch/eknodel/Cancer_Genomics/02_variant_annotation/Combined_output_patient12.vep.in --format vcf --database --assembly GRCh38 --vcf -o /scratch/eknodel/Cancer_Genomics/02_variant_annotation/Combined_output_patient12.vep --force_overwrite  --symbol --plugin Wildtype --terms SO --plugin Downstream

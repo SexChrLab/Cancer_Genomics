@@ -2,8 +2,8 @@ import os
 
 configfile: "somatic_mutation_calling_config.json"
 
-adapter_path = "/scratch/tphung3/Cancer_Genomics/00_misc/adapter_sequence.fa"
-perl5lib_path = "/home/tphung3/softwares/miniconda3/envs/epitopepipeline/lib/site_perl/5.26.2/"
+adapter_path = "/scratch/eknodel/Cancer_Genomics/00_misc/adapter_sequence.fa"
+perl5lib_path = "/packages/6x/vcftools/0.1.12b/lib/per15/site_perl/"
 
 rule all:
     input:
@@ -60,6 +60,8 @@ rule trimmed_fastqc_analysis:
     output:
         fq1_fastqc = "trimmed_fastqc_results/{sample}_trimmed_read1_fastqc.html",
         fq2_fastqc = "trimmed_fastqc_results/{sample}_trimmed_read2_fastqc.html"
+    params: 
+        perl5lib = perl5lib_path
     shell:
         """
         PERL5LIB={params.perl5lib} fastqc -o trimmed_fastqc_results {input.fq_1};

@@ -40,7 +40,7 @@ rule run:
         snvs = "strelka/{subject}/results/variants/somatic.snvs.vcf.gz",
         indels = "strelka/{subject}/results/variants/somatic.indels.vcf.gz"
     params:
-        run = "/scratch/tphung3/Cancer_Genomics/01_somatic_mutation_calling/strelka/{subject}/runWorkflow.py"
+        run = "/scratch/eknodel/Cancer_Genomics/01_somatic_mutation_calling/strelka/{subject}/runWorkflow.py"
     shell:
         """
         {params.run} -m local -j 20
@@ -84,7 +84,7 @@ rule FP_filter:
         snvs = "strelka/{subject}/results/variants/somatic.snvs.pass.vcf_TP_after_filtered_sorted.vcf",
         indels = "strelka/{subject}/results/variants/somatic.indels.pass.vcf_TP_after_filtered_sorted.vcf"
     params:
-        FP = "/home/tphung3/softwares/miniconda3/envs/cancergenomics/lib/FPfilter/"
+        FP = "~/miniconda3/envs/cancergenomics/lib/FPfilter"
     shell:
         """
         FPfilter -v {input.snvs} -p {params.FP};
