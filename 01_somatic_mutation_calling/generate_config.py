@@ -23,6 +23,8 @@ data["fastq_path"] = args.fastq_path
 
 # all sample ids
 data["all_samples"] = []
+data["DNA"] = []
+data["RNA"] = []
 
 all_subjects = set()
 data["all_subjects"] = []
@@ -32,10 +34,14 @@ with open(args.sample_info, "r") as f: #TODO: update the path here
     for line in f:
         if not line.startswith("subjectID"):
             items = line.rstrip("\n").split(",")
-            data["all_samples"].append(items[1])
-            all_subjects.add(items[0])
+            if items[4] == "DNA":
+                data["DNA"].append(items[1])
+                all_subjects.add(items[0])
 
-            subjectID_normal_tumor_info[items[0]].append(items[1]) #Assuming that normal is before tumor
+                subjectID_normal_tumor_info[items[0]].append(items[1]) #Assuming that normal is before tumor
+            elif items[4] == "RNA":
+                data["RNA"].append(items[1])
+            data["all_samples"].append(items[1])
 
 for i in all_subjects:
     data["all_subjects"].append(i)
@@ -48,10 +54,10 @@ for i in subjectID_normal_tumor_info:
     data.update(info)
 
 # populate read group information for each sample
-for sample in data["all_samples"]:
+for sample in data["DNA"]:
     read_group_info = {}
-    read_group_info[sample] = {"fq_1": sample + "_1.fastq",
-        "fq_2": sample + "_2.fastq",
+    read_group_info[sample] = {"fq_1": sample + "_1.fastq.gz",
+        "fq_2": sample + "_2.fastq.gz",
         "ID": sample,
         "SM": sample,
         "LB": sample,

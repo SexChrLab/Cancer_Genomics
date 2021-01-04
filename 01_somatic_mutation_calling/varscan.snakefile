@@ -4,8 +4,8 @@ configfile: "somatic_mutation_calling_config.json"
 
 rule all:
     input:
-        expand("varscan/pileups/{sample}.pileup", sample=config["all_samples"]), #run bam_pileup
-        expand("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai", sample=config["all_samples"]), # run bam_index
+        expand("varscan/pileups/{sample}.pileup", sample=config["DNA"]), #run bam_pileup
+        expand("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai", sample=config["DNA"]), # run bam_index
         expand("varscan/{subject}.varscan.snp", subject=config["all_subjects"]), #run VarScan
         expand("varscan/{subject}.varscan.indel", subject=config["all_subjects"]), #run VarScan
         expand("varscan/{subject}.varscan.variants.filter.pass", subject=config["all_subjects"]), #filter

@@ -21,11 +21,12 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 
 ## 00_misc
 - This directory contains miscellaneous files needed to run the program
-1. `samples_info.csv`: this is a csv file with 3 columns: sampleID, tissue, and type (normal or tumor). TODO: add DNA or RNA information.
+1. `samples_info.csv`: this is a csv file with 4 columns: sampleID, tissue, type (normal or tumor), and genome type (DNA or RNA).
 2. `adapter_sequence.fa`
 ## 01_somatic_mutation_calling
 1. Generate a config file:
     - We generate a config file called `somatic_mutation_calling_config.json` that we will be using for this section. Below is an example of how to run this script. **You need to change the path to the files as appropriate.**
+    - Note: This program is written such that normal is always assumed to be listed in the config file before tumor.
         ```
         python generate_config.py --fastq_path /data/CEM/shared/controlled_access/Beauty/
                                   --sample_info /scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv
