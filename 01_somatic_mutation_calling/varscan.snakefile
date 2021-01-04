@@ -5,6 +5,7 @@ configfile: "somatic_mutation_calling_config.json"
 rule all:
     input:
         expand("varscan/pileups/{sample}.pileup", sample=config["all_samples"]), #run bam_pileup
+        expand("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai", sample=config["all_samples"]), # run bam_index
         expand("varscan/{subject}.varscan.snp", subject=config["all_subjects"]), #run VarScan
         expand("varscan/{subject}.varscan.indel", subject=config["all_subjects"]), #run VarScan
         expand("varscan/{subject}.varscan.variants.filter.pass", subject=config["all_subjects"]), #filter
@@ -20,6 +21,17 @@ rule bam_pileup: #for both normal and tumor
     shell:
         """
         samtools mpileup -f {input.ref} {input.bam} > {output.pileup}
+        """
+
+rule bam_index: 
+    input: 
+        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
+    output:
+        bai = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
+    threads: 4
+    shell:
+        """
+        samtools index {input.bam}
         """
 
 rule run_varscan:
@@ -108,5 +120,5 @@ rule convert_to_vcf:
         "varscan/{subject}.varscan.variants.filter.pass.vcf"
     shell:
         """
-        python /home/tphung3/softwares/VarScan2_format_converter.py {input} > {output}
+        python ~/bin/VarScan2_format_converter.py {input} > {output}
         """
