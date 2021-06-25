@@ -63,9 +63,6 @@ Snakefile `VEP_PVACseq.snakefile` performs the following steps:
 1. Prepare file as input to the program Variant Effect Predictor (VEP)
     - GATK file is unzipped
     - Runs the script `prepare_input_for_vep.py`
-        ```
-        python prepare_input_for_vep.py --vcf_filenames {/input/full/path/to/vcf/files/} --vep_format_fn {/input/full/path/to/output/vep/file} 
-        ```
     - As currently written, the snakemake automatically uses the outputs of GATK and Strelka only and takes the overlap of these two programs. 
     - Other available options are:  
         - One vcf file can be provided as input, at which pointthe script converts the variant in VCF file format to format that can be used for VEP:
@@ -80,8 +77,8 @@ Snakefile `VEP_PVACseq.snakefile` performs the following steps:
 
 2. Runs Variant Effect Predictor (VEP)
     - Returns annotated variants 
-    - Uses downstream pluggin to eliminate variants that are downstream of a frameshif mutation
-    - Uses wildtype pluggin to return the corresponding wildtype peptide as well.
+    - Uses downstream pluggin to eliminate variants that are downstream of a frameshift mutation
+    - Uses wildtype pluggin to return the corresponding wildtype peptide as well
 
 3. Runs PVAC-Seq (https://anaconda.org/bioconda/pvacseq) to generate peptide. 
     - The default command is:
@@ -90,8 +87,8 @@ Snakefile `VEP_PVACseq.snakefile` performs the following steps:
         ```
     - This will generate 17mer peptides but changing the 17 can change the default for the generated peptides. Generating 17mers is recommended as this allows the following steps to create 9mer peptides in which the mutation of interest is in every possible position
 
-## 03_Calculate_Neoantigen_Binding
-We assess neoantigen bindint in two ways. First, we use netMHCpan to calculate the dissociation constant and then we use the netMHCstabpan to calculate the binding stability
+## 03_calculate_neoantigen_binding
+We assess neoantigen binding in two ways. First, we use netMHCpan to calculate the dissociation constant and then we use the netMHCstabpan to calculate the binding stability
 
 **Note, currently the HLA types are assumed to be present in the config file, but the config file created here does not automatically add them, this will be fixed soon**
 
@@ -105,27 +102,19 @@ All of the following steps are performed with `netMHCpan-snakemake.py`:
 
 ## 04_expression
 - We utilize salmon for expression quantification (https://salmon.readthedocs.io/en/latest/salmon.html)
-- Need to have a salmon index and then change lines 13, 16, and 17. # To do: Add these directories to the config file to reduce hard coding
+- Need to have a salmon index and then change lines 13, 16, and 17. **To do: Add these directories to the config file to reduce hard coding**
 
 ## 05_filtering_peptide
-- We are using the following directory structure
-- Example: results/Test/HLA-A01:01/9_mers/
-- Run netMHCpan example:
-    ```
-    netMHCpan -a HLA-A01:01 -f ../03_generate_peptides/test_vep_9mers_fmt.txt -BA -s -xls -l 9  -xlsfile results/Test/HLA-A01\:01/9_mers/netmhc.xsl
-    ```
-- Run netMHCstabpan example:
-    ```
-    netMHCstabpan -a HLA-A01:01 -f ../03_generate_peptides/test_vep_9mers_fmt.txt -s -xls -l 9  -xlsfile results/Test/HLA-A01\:01/9_mers/netmhcstab.xsl
-    ```
-  
+
+**To be updated**
+
 - Currently (as of November 2020), we are using the thresholds defined for binding affinity, binding stability, and tumor abundance as suggested by Wells et al. (2020) (https://pubmed.ncbi.nlm.nih.gov/33038342/). The repository for the filtering is here: https://github.com/tanyaphung/neoantigens_prioritization. For this example, we do not have RNAseq data, so we are filtering based on binding affinity and binding stability alone. This is how to run the script:
     ```
     python neoepitope_prediction.py --hla_types_fn results/Test/hla.txt --sample_id Test --mers 9 --data_dir results/
     ```
-
-=======
   
 ## HLA typing
+
+**To be updated**
 - Can use HLA-LA for HLA typing.
 - Refer to the HLA-LA repo (https://github.com/DiltheyLab/HLA-LA) for details on how to get it running.  
