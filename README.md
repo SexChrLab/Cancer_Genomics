@@ -44,43 +44,54 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
         1. Trim
         1. Trimmed QC
     - **You need to edit lines 5-6 of the snakefile to point to the appropriate path to the adaptor sequence and perl lib for your system.**
-    4. Mapping
+
+3. Mapping
     - Use the Snakefile `map.snakefile`
         1. Prepare reference
         1. Map
 
-3. Variant calling
+4. Variant calling
     - We use three programs for variant calling: VarScan, GATK Mutect2, and Strelka
     - Snakefiles: `varscan.snakefile`, `gatk_mutect2.snakefile`, and `strelka.snakefile`.
     - **Need to edit line 123 of varscan.snakefile to have your own version of VarScan2_format_converter.py. Can be obtained from: https://gist.github.com/PoisonAlien/be1af2a53d5d7bbe2c7a#file-varscan2_format_converter-py** 
     - **Need to edit line 43 of strelka.snakefile to have the appropriate user name on the scratch directory and 92 to appropriate miniconda directory**
 
 ## 02_variant_annotation
+
+Snakefile: VEP_PVACseq.snakefile performs the following steps:  
+
 1. Prepare file as input to the program Variant Effect Predictor (VEP)
-- Script `prepare_input_for_vep.py`
+- GATK file is unzipped
+- Runs the script `prepare_input_for_vep.py`
     ```
     python prepare_input_for_vep.py --vcf_filenames {/input/full/path/to/vcf/files/} --vep_format_fn {/input/full/path/to/output/vep/file} 
     ```
-- This script takes in one or more than one vcf files. If you have more than one VCF file, please separate them by a comma and no space
-- GATK file will need to be unzipped using gunzip {filename} before running `prepare_input_for_vep.py`
-- If there's just one vcf file as input, the script converts the variant in VCF file format to format that can be used for VEP:
-    - Column 1: chromosome name
-    - Column 2: Position
-    - Column 3 : "."
-    - Column 4: reference nucleotide
-    - Column 5: alternate nucleotide
-    - Column 6, 7, and 8: "."
-- If there are more than one vcf files as input, the script selects the variants that are shared in at least 2 vcf files, before converting the variant in VCF file format to the format mentioned above. 
+- As currently written, the snakemake automatically uses the outputs of GATK and Strelka only and takes the overlap of these two programs. 
+- Other available options are:  
+    - One vcf file can be provided as input, at which pointthe script converts the variant in VCF file format to format that can be used for VEP:
+        - Column 1: chromosome name
+        - Column 2: Position
+        - Column 3 : "."
+        - Column 4: reference nucleotide
+        - Column 5: alternate nucleotide
+        - Column 6, 7, and 8: "."
+    - Additional VCF files can be merged by adding them to the list with a comma and no space. Note that the program will select the overlap of any two of the VCF files provided.  
 - This script also automatically outputs a file called `number_of_variants_summary.txt` that list the number of variants per vcf file (if there are more than 1 vcf files) and the number of variants that are shared in at least 2 vcf files 
 
-2. Run Variant Effect Predictor (VEP)
-- See script `run_vep.sh` for direction on how to run vep. 
+2. Runs Variant Effect Predictor (VEP)
+- Returns annotated variants 
+- Uses downstream pluggin to eliminate variants that are downstream of a frameshif mutation
+- Uses wildtype pluggin to return the corresponding wildtype peptide as well.
 
-## 03_generate_peptide
-- We utilize pvacseq (https://anaconda.org/bioconda/pvacseq) to generate peptide. An example command is:
+3. Runs PVAC-Seq (https://anaconda.org/bioconda/pvacseq) to generate peptide. 
+- The default command is:
     ```
-    pvacseq generate_protein_fasta {/input/to/vep/vcf/} 9 {output}
+    pvacseq generate_protein_fasta {/input/to/vep/vcf/} 17 {output}
     ```
+- This will generate 17mer peptides but changing the 17 can change the default for the generated peptides. Generating 17mers is recommended as this allows the following steps to create 9mer peptides in which the mutation of interest is in every possible position
+
+## 03_Calculate_Neoantigen_Binding
+
 - Because the program netMHCpan truncates the name of the transcripts in its output, in order to retain the transcript name information in the netMHCpan outputs, we modify the output from pvacseq using this command:
     ```
     cat {input.peptides} | grep -A 1 ">MT" | sed '/--/d' | sed 's/MT.*ENS//' > {output.peptides_formatted}
