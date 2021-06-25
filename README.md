@@ -58,44 +58,51 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 
 ## 02_variant_annotation
 
-Snakefile: VEP_PVACseq.snakefile performs the following steps:  
+Snakefile `VEP_PVACseq.snakefile` performs the following steps:  
 
 1. Prepare file as input to the program Variant Effect Predictor (VEP)
-- GATK file is unzipped
-- Runs the script `prepare_input_for_vep.py`
-    ```
-    python prepare_input_for_vep.py --vcf_filenames {/input/full/path/to/vcf/files/} --vep_format_fn {/input/full/path/to/output/vep/file} 
-    ```
-- As currently written, the snakemake automatically uses the outputs of GATK and Strelka only and takes the overlap of these two programs. 
-- Other available options are:  
-    - One vcf file can be provided as input, at which pointthe script converts the variant in VCF file format to format that can be used for VEP:
-        - Column 1: chromosome name
-        - Column 2: Position
-        - Column 3 : "."
-        - Column 4: reference nucleotide
-        - Column 5: alternate nucleotide
-        - Column 6, 7, and 8: "."
-    - Additional VCF files can be merged by adding them to the list with a comma and no space. Note that the program will select the overlap of any two of the VCF files provided.  
-- This script also automatically outputs a file called `number_of_variants_summary.txt` that list the number of variants per vcf file (if there are more than 1 vcf files) and the number of variants that are shared in at least 2 vcf files 
+    - GATK file is unzipped
+    - Runs the script `prepare_input_for_vep.py`
+        ```
+        python prepare_input_for_vep.py --vcf_filenames {/input/full/path/to/vcf/files/} --vep_format_fn {/input/full/path/to/output/vep/file} 
+        ```
+    - As currently written, the snakemake automatically uses the outputs of GATK and Strelka only and takes the overlap of these two programs. 
+    - Other available options are:  
+        - One vcf file can be provided as input, at which pointthe script converts the variant in VCF file format to format that can be used for VEP:
+            - Column 1: chromosome name
+            - Column 2: Position
+            - Column 3 : "."
+            - Column 4: reference nucleotide
+            - Column 5: alternate nucleotide
+            - Column 6, 7, and 8: "."
+        - Additional VCF files can be merged by adding them to the list with a comma and no space. Note that the program will select the overlap of any two of the VCF files provided.  
+    - This script also automatically outputs a file called `number_of_variants_summary.txt` that list the number of variants per vcf file (if there are more than 1 vcf files) and the number of variants that are shared in at least 2 vcf files 
 
 2. Runs Variant Effect Predictor (VEP)
-- Returns annotated variants 
-- Uses downstream pluggin to eliminate variants that are downstream of a frameshif mutation
-- Uses wildtype pluggin to return the corresponding wildtype peptide as well.
+    - Returns annotated variants 
+    - Uses downstream pluggin to eliminate variants that are downstream of a frameshif mutation
+    - Uses wildtype pluggin to return the corresponding wildtype peptide as well.
 
 3. Runs PVAC-Seq (https://anaconda.org/bioconda/pvacseq) to generate peptide. 
-- The default command is:
-    ```
-    pvacseq generate_protein_fasta {/input/to/vep/vcf/} 17 {output}
-    ```
-- This will generate 17mer peptides but changing the 17 can change the default for the generated peptides. Generating 17mers is recommended as this allows the following steps to create 9mer peptides in which the mutation of interest is in every possible position
+    - The default command is:
+        ```
+        pvacseq generate_protein_fasta {/input/to/vep/vcf/} 17 {output}
+        ```
+    - This will generate 17mer peptides but changing the 17 can change the default for the generated peptides. Generating 17mers is recommended as this allows the following steps to create 9mer peptides in which the mutation of interest is in every possible position
 
 ## 03_Calculate_Neoantigen_Binding
+We assess neoantigen bindint in two ways. First, we use netMHCpan to calculate the dissociation constant and then we use the netMHCstabpan to calculate the binding stability
 
-- Because the program netMHCpan truncates the name of the transcripts in its output, in order to retain the transcript name information in the netMHCpan outputs, we modify the output from pvacseq using this command:
-    ```
-    cat {input.peptides} | grep -A 1 ">MT" | sed '/--/d' | sed 's/MT.*ENS//' > {output.peptides_formatted}
-    ```
+**Note, currently the HLA types are assumed to be present in the config file, but the config file created here does not automatically add them, this will be fixed soon**
+
+All of the following steps are performed with `netMHCpan-snakemake.py`:
+
+1. Formatting input
+
+2. netMHCpan for calculation of dissociation constant
+
+3. netMHCstabpan for calculation of stability
+
 ## 04_expression
 - We utilize salmon for expression quantification (https://salmon.readthedocs.io/en/latest/salmon.html)
 - Need to have a salmon index and then change lines 13, 16, and 17. # To do: Add these directories to the config file to reduce hard coding
@@ -116,10 +123,9 @@ Snakefile: VEP_PVACseq.snakefile performs the following steps:
     ```
     python neoepitope_prediction.py --hla_types_fn results/Test/hla.txt --sample_id Test --mers 9 --data_dir results/
     ```
-<<<<<<< HEAD
+
 =======
   
 ## HLA typing
 - Can use HLA-LA for HLA typing.
 - Refer to the HLA-LA repo (https://github.com/DiltheyLab/HLA-LA) for details on how to get it running.  
->>>>>>> 0bef8179e0749f331d76986fcde2294e5afd23d6
