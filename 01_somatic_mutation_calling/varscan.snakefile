@@ -8,8 +8,7 @@ rule all:
         expand("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai", sample=config["DNA"]), # run bam_index
         expand("varscan/{subject}.varscan.snp", subject=config["all_subjects"]), #run VarScan
         expand("varscan/{subject}.varscan.indel", subject=config["all_subjects"]), #run VarScan
-        expand("varscan/{subject}.varscan.variants.filter.pass", subject=config["all_subjects"]), #filter
-        expand("varscan/{subject}.varscan.variants.filter.pass.vcf", subject=config["all_subjects"]) #convert to vcf
+        expand("varscan/{subject}.varscan.snp.Somatic.hc.filter.vcf", subject=config["all_subjects"]) #convert to vcf
 
 rule bam_pileup: #for both normal and tumor
     input:
@@ -75,50 +74,12 @@ rule somatic_filter:
         java -jar {params.varscan} somaticFilter {input.snp_somatic_hc} -indel-file {input.indel} -output-file {output.snp_somatic_hc_filter}
         """
 
-rule convert_to_bed_fmt:
-    input:
-        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.Somatic.hc.filter"
-    output:
-        snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.Somatic.hc.filter.bed"
-    shell:
-        """
-        awk -F "\t" '{{print $1 "\t" $2 "\t" $2 }}' {input.snp_somatic_hc_filter} | tail -n+2 > {output.snp_somatic_hc_filter_bed}
-        """
-
-rule readcount:
-    input:
-        ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
-        snp_somatic_hc_filter_bed = "varscan/{subject}.varscan.snp.Somatic.hc.filter.bed",
-        tumor_bam = lambda wildcards: os.path.join("processed_bams/", config[wildcards.subject]["tumor"] + "."+ config["ref_basename"] + ".sorted.bam")
-    output:
-        readcounts = "varscan/{subject}.readcounts"
-    params:
-        bamreadcount = config["bam-readcount"]
-    shell:
-        """
-        {params.bamreadcount} -q 1 -b 20 -f {input.ref} -l {input.snp_somatic_hc_filter_bed} {input.tumor_bam} > {output.readcounts}
-        """
-
-rule perl_filter:
-    input:
-        snp_somatic_hc_filter = "varscan/{subject}.varscan.snp.Somatic.hc.filter",
-        readcounts = "varscan/{subject}.readcounts"
-    output:
-        out = "varscan/{subject}.varscan.variants.filter.pass"
-    params:
-        basename = "varscan/{subject}.varscan.variants.filter",
-        perlfilter = config["perl_fp_filter"]
-    shell:
-        """
-        perl {params.perlfilter} {input.snp_somatic_hc_filter} {input.readcounts} --output-basename {params.basename}
-        """
-
 rule convert_to_vcf:
     input:
-        "varscan/{subject}.varscan.variants.filter.pass"
+        "/scratch/eknodel/DCIS/varscan/{subject}.varscan.snp.Somatic.hc.filter"
     output:
-        "varscan/{subject}.varscan.variants.filter.pass.vcf"
+        "/scratch/eknodel/DCIS/varscan/{subject}.varscan.snp.Somatic.hc.filter.vcf"
     shell:
         """
-        python ~/bin/VarScan2_format_converter.py {input} > {output}
+        cat {input} | awk '{{print $1"\t" $2"\t" "." "\t" $3 "\t" $4}}' > {output}
         """

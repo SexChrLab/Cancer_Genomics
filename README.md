@@ -53,7 +53,6 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 4. Variant calling
     - We use three programs for variant calling: VarScan, GATK Mutect2, and Strelka
     - Snakefiles: `varscan.snakefile`, `gatk_mutect2.snakefile`, and `strelka.snakefile`.
-    - **Need to edit line 123 of varscan.snakefile to have your own version of VarScan2_format_converter.py. Can be obtained from: https://gist.github.com/PoisonAlien/be1af2a53d5d7bbe2c7a#file-varscan2_format_converter-py** 
     - **Need to edit line 43 of strelka.snakefile to have the appropriate user name on the scratch directory and 92 to appropriate miniconda directory**
 
 ## 02_variant_annotation
