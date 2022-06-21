@@ -48,7 +48,9 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 3. Mapping
     - Use the Snakefile `map.snakefile`
         1. Prepare reference
-        1. Map
+        2. Map
+        3. Mark duplicates
+        4. Index
 
 4. Variant calling
     - We use three programs for variant calling: VarScan, GATK Mutect2, and Strelka

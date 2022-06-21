@@ -22,17 +22,6 @@ rule bam_pileup: #for both normal and tumor
         samtools mpileup -f {input.ref} {input.bam} > {output.pileup}
         """
 
-rule bam_index: 
-    input: 
-        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
-    output:
-        bai = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
-    threads: 4
-    shell:
-        """
-        samtools index {input.bam}
-        """
-
 rule run_varscan:
     input:
         normal_pileup = lambda wildcards: os.path.join(

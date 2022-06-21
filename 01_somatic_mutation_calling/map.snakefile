@@ -7,7 +7,8 @@ rule all:
         os.path.join(config["ref_dir"], config["ref_basename"] + ".fa.fai"),
         os.path.join(config["ref_dir"], config["ref_basename"] + ".dict"),
         os.path.join(config["ref_dir"], config["ref_basename"] + ".fa.amb"),
-        expand(os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam"), sample=config["all_samples"])
+        expand(os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai"), sample=config["all_samples"]),
+        expand(os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam.bai"), sample=config["all_samples"])
 
 rule prep_refs:
     input:
@@ -46,4 +47,31 @@ rule map:
         " | samtools fixmate -O bam - - | samtools sort "
         "-O bam -o {output}"
 
-# TODO: index bam
+rule index:
+    input:
+        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
+    output:
+        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
+    shell:
+        """
+        samtools index {input}
+        """
+
+rule mark_duplicates:
+    input:
+        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam"),
+        bai = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
+    output:
+        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam"),
+        metrics = os.path.join("processed_bams/{sample}.picard_mkdup_metrics.txt")
+    threads: 4
+    shell:
+        "picard -Xmx14g MarkDuplicates I={input.bam} O={output.bam} M={output.metrics}"
+
+rule index_mkdup:
+    input:
+        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam")
+    output:
+        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam.bai")
+    shell:
+        "samtools index {input}"
