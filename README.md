@@ -76,7 +76,7 @@ Snakefile `VEP_PVACseq.snakefile` performs the following steps:
         - Additional VCF files can be merged by adding them to the list with a comma and no space. Note that the program will select the overlap of any two of the VCF files provided.  
     - This script also automatically outputs a file called `number_of_variants_summary.txt` that list the number of variants per vcf file (if there are more than 1 vcf files) and the number of variants that are shared in at least 2 vcf files 
 
-2. Runs Variant Effect Predictor (VEP)
+2. Runs Variant Effect Predictor (VEP) - **Note:** VEP can be difficult to download. Detailed instructions included below. 
     - Returns annotated variants 
     - Uses downstream pluggin to eliminate variants that are downstream of a frameshift mutation
     - Uses wildtype pluggin to return the corresponding wildtype peptide as well
@@ -119,3 +119,24 @@ All of the following steps are performed with `netMHCpan-snakemake.py`:
 **To be updated**
 - Can use HLA-LA for HLA typing.
 - Refer to the HLA-LA repo (https://github.com/DiltheyLab/HLA-LA) for details on how to get it running.  
+
+## Instructions for installing the Variant Effects Predictor
+
+* See Ensembl directions: https://uswest.ensembl.org/info/docs/tools/vep/script/vep_download.html
+
+    1. Before installing VEP, download or load Perl 5 (eg. perl/5.26.1 module in ASU Agave)
+    2. Navigate to local directory where you store software
+    3. Clone ensembl-vep from Github and enter the directory
+        ```
+        git clone https://github.com/Ensembl/ensembl-vep.git
+        cd ensembl-vep
+        ```
+    4. Run installation script which will get the required Perl libraries needed to run VEP
+        ```
+        perl INSTALL.pl
+        ```
+    5. Select to cache annotation information for any genome references you align to regularly and select to install the Wildtype and Downstream plugins plus any others that sound interesting 
+    6. Export your install directory to your perl 5 path: 
+        ```
+        export PERL5LIB=${PERL5LIB}:/your_install_path/ensembl-vep/
+        ```
