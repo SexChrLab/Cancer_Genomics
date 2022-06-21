@@ -124,19 +124,19 @@ All of the following steps are performed with `netMHCpan-snakemake.py`:
 
 * See Ensembl directions: https://uswest.ensembl.org/info/docs/tools/vep/script/vep_download.html
 
-    1. Before installing VEP, download or load Perl 5 (eg. perl/5.26.1 module in ASU Agave)
-    2. Navigate to local directory where you store software
-    3. Clone ensembl-vep from Github and enter the directory
-        ```
-        git clone https://github.com/Ensembl/ensembl-vep.git
-        cd ensembl-vep
-        ```
-    4. Run installation script which will get the required Perl libraries needed to run VEP
-        ```
-        perl INSTALL.pl
-        ```
-    5. Select to cache annotation information for any genome references you align to regularly and select to install the Wildtype and Downstream plugins plus any others that sound interesting 
-    6. Export your install directory to your perl 5 path: 
-        ```
-        export PERL5LIB=${PERL5LIB}:/your_install_path/ensembl-vep/
-        ```
+1. Before installing VEP, download or load Perl 5 (eg. perl/5.26.1 module in ASU Agave)
+2. Navigate to local directory where you store software
+3. Clone ensembl-vep from Github and enter the directory
+    ```
+    git clone https://github.com/Ensembl/ensembl-vep.git
+    cd ensembl-vep
+    ```
+4. Run installation script which will get the required Perl libraries needed to run VEP
+    ```
+    perl INSTALL.pl
+    ```
+5. Select to cache annotation information for any genome references you align to regularly and select to install the Wildtype and Downstream plugins plus any others that sound interesting 
+6. Export your install directory to your perl 5 path: 
+    ```
+    export PERL5LIB=${PERL5LIB}:/your_install_path/ensembl-vep/
+    ```
