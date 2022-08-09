@@ -23,6 +23,7 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
 - This directory contains miscellaneous files needed to run the program
 1. `samples_info.csv`: this is a csv file with 4 columns: sampleID, tissue, type (normal or tumor), and genome type (DNA or RNA).
 2. `adapter_sequence.fa`
+
 ## 01_somatic_mutation_calling
 1. Generate a config file:
     - We generate a config file called `somatic_mutation_calling_config.json` that we will be using for this section. Below is an example of how to run this script. **You need to change the path to the files as appropriate.**
@@ -38,6 +39,22 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
                                   --bam_readcount /home/tphung3/softwares/bam-readcount
                                   --perl_fp_filter /home/tphung3/softwares/fpfilter-2.pl
         ```
+    - If sex specific read mapping is desired, generate the config separately for read mapping in the folder sex_specific_read_mapping with the following command
+        ```
+        python generate_config.py --fastq_path /data/CEM/shared/controlled_access/Beauty/
+                                  --sample_info /scratch/tphung3/Cancer_Genomics/00_misc/samples_info.csv
+                                  --female_ref_dir /data/CEM/shared/public_data/references/T2T_CHM13_v2/T2T_CHM13_v2_SCC/
+                                  --female_ref_basename GCA_009914755.4_CHM13_T2T_v2.0_genomic_YHardMasked_ChrNamesAdded
+                                  --male_ref_dir /data/CEM/shared/public_data/references/T2T_CHM13_v2/T2T_CHM13_v2_SCC/
+                                  --male_ref_basename GCA_009914755.4_CHM13_T2T_v2.0_genomic_YPARsMasked_ChrNamesAdded
+                                  --ref_basename GCA_009914755.4_CHM13_T2T_v2.0
+                                  --varscan_path /home/tphung3/softwares/VarScan.v2.3.9.jar
+                                  --gatk_path /home/tphung3/softwares/gatk-4.1.8.1/gatk
+                                  --strelka /home/tphung3/softwares/miniconda3/envs/cancer/share/strelka-2.9.10-0/bin/configureStrelkaSomaticWorkflow.py
+                                  --bam_readcount /home/tphung3/softwares/bam-readcount
+                                  --perl_fp_filter /home/tphung3/softwares/fpfilter-2.pl
+        ```
+
 2. Quality control
     - Use the Snakefile `quality_control.snakefile`:
         1. Raw QC
@@ -51,11 +68,13 @@ Assembling pipelines for our cancer genomics work. This includes neoepitope iden
         2. Map
         3. Mark duplicates
         4. Index
+    - For sex specific mapping, use the Snakefile `sex_specific_read_mapping/map.snakefile`, this will perform the same steps as outlines above and should seemlessly integrate back into the main pipeline
 
 4. Variant calling
     - We use three programs for variant calling: VarScan, GATK Mutect2, and Strelka
     - Snakefiles: `varscan.snakefile`, `gatk_mutect2.snakefile`, and `strelka.snakefile`.
     - **Need to edit line 43 of strelka.snakefile to have the appropriate user name on the scratch directory and 92 to appropriate miniconda directory**
+    - **TO DO: check if we need to add a sex specific option for the variant calling**
 
 ## 02_variant_annotation
 
