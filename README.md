@@ -99,6 +99,7 @@ Snakefile `VEP_PVACseq.snakefile` performs the following steps:
     - Returns annotated variants 
     - Uses downstream pluggin to eliminate variants that are downstream of a frameshift mutation
     - Uses wildtype pluggin to return the corresponding wildtype peptide as well
+    - **NOTE: Currently not compatable with the CHM13 reference genome, working on this**
 
 3. Runs PVAC-Seq (https://anaconda.org/bioconda/pvacseq) to generate peptide. 
     - The default command is:
