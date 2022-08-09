@@ -43,14 +43,14 @@ rule prep_refs_male:
 
 rule map:
     input:
-        fq_1 = "trimmed_fastqs/{sample}_trimmed_read1.fastq.gz",
-        fq_2 = "trimmed_fastqs/{sample}_trimmed_read2.fastq.gz",
+        fq_1 = "../trimmed_fastqs/{sample}_trimmed_read1.fastq.gz",
+        fq_2 = "../trimmed_fastqs/{sample}_trimmed_read2.fastq.gz",
         fai_female = os.path.join(config["female_ref_dir"], config["female_ref_basename"] + ".fa.fai"),
         ref_female = os.path.join(config["female_ref_dir"], config["female_ref_basename"] + ".fa"),
         fai_male = os.path.join(config["male_ref_dir"], config["male_ref_basename"] + ".fa.fai"),
         ref_male = os.path.join(config["male_ref_dir"], config["male_ref_basename"] + ".fa")
     output:
-        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
+        os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
     params:
         id = lambda wildcards: config[wildcards.sample]["ID"],
         sm = lambda wildcards: config[wildcards.sample]["SM"],
@@ -67,9 +67,9 @@ rule map:
 
 rule index:
     input:
-        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
+        os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam")
     output:
-        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
+        os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
     shell:
         """
         samtools index {input}
@@ -77,19 +77,19 @@ rule index:
 
 rule mark_duplicates:
     input:
-        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam"),
-        bai = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
+        bam = os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam"),
+        bai = os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.bam.bai")
     output:
-        bam = os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam"),
-        metrics = os.path.join("processed_bams/{sample}.picard_mkdup_metrics.txt")
+        bam = os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam"),
+        metrics = os.path.join("../processed_bams/{sample}.picard_mkdup_metrics.txt")
     threads: 4
     shell:
         "picard -Xmx14g MarkDuplicates I={input.bam} O={output.bam} M={output.metrics}"
 
 rule index_mkdup:
     input:
-        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam")
+        os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam")
     output:
-        os.path.join("processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam.bai")
+        os.path.join("../processed_bams/{sample}." + config["ref_basename"] + ".sorted.mkdup.bam.bai")
     shell:
         "samtools index {input}"
