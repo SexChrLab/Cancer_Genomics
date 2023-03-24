@@ -125,14 +125,11 @@ All of the following steps are performed with `netMHCpan-snakemake.py`:
 - We utilize salmon for expression quantification (https://salmon.readthedocs.io/en/latest/salmon.html)
 - Need to have a salmon index and then change lines 13, 16, and 17. **To do: Add these directories to the config file to reduce hard coding**
 
-## 05_filtering_peptide
+## 05_variant_specific_allele_frequency
 
-**To be updated**
+1. Read mapping of RNAseq data peformed with Hisat2
 
-- Currently (as of November 2020), we are using the thresholds defined for binding affinity, binding stability, and tumor abundance as suggested by Wells et al. (2020) (https://pubmed.ncbi.nlm.nih.gov/33038342/). The repository for the filtering is here: https://github.com/tanyaphung/neoantigens_prioritization. For this example, we do not have RNAseq data, so we are filtering based on binding affinity and binding stability alone. This is how to run the script:
-    ```
-    python neoepitope_prediction.py --hla_types_fn results/Test/hla.txt --sample_id Test --mers 9 --data_dir results/
-    ```
+2. Variant specific allele frequency determined with GATK ASEReadCounts
   
 ## HLA typing
 
