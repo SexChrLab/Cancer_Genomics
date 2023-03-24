@@ -1,4 +1,11 @@
 # Cancer_Genomics
+
+**Last updated:** 3/24/2023
+
+**Updated by:** Elizabeth Borden
+
+**Contact information:** knodele@email.arizona.edu
+
 Assembling pipelines for our cancer genomics work. This includes neoepitope identification, and sex difference analyses.
 
 ## Conda environment
