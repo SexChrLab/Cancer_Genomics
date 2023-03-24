@@ -1,0 +1,91 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 15
+Job counts:
+	count	jobs
+	1	all
+	5	hisat2_align_reads
+	5	index_mkdup_bam
+	5	mark_duplicates
+	5	readgroup
+	5	sam_to_bam
+	5	sort_bam
+	31
+
+[Wed Mar 15 16:09:34 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_3_RNA_HISAT2_genome_aligned.sam
+    jobid: 16
+    wildcards: sample=TESLA_3
+
+Submitted job 16 with external jobid 'Submitted batch job 2066485'.
+
+[Wed Mar 15 16:09:34 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_11_RNA_HISAT2_genome_aligned.sam
+    jobid: 14
+    wildcards: sample=TESLA_11
+
+Submitted job 14 with external jobid 'Submitted batch job 2066486'.
+
+[Wed Mar 15 16:09:35 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_19_RNA_HISAT2_genome_aligned.sam
+    jobid: 3
+    wildcards: sample=TESLA_19
+
+Submitted job 3 with external jobid 'Submitted batch job 2066487'.
+
+[Wed Mar 15 16:09:35 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_94_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_94_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_94_RNA_HISAT2_genome_aligned.sam
+    jobid: 1
+    wildcards: sample=TESLA_94
+
+Submitted job 1 with external jobid 'Submitted batch job 2066488'.
+
+[Wed Mar 15 16:09:35 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_97_RNA_HISAT2_genome_aligned.sam
+    jobid: 4
+    wildcards: sample=TESLA_97
+
+Submitted job 4 with external jobid 'Submitted batch job 2066489'.
+[Wed Mar 15 16:09:44 2023]
+Error in rule hisat2_align_reads:
+    jobid: 16
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_3_RNA_HISAT2_genome_aligned.sam
+    cluster_jobid: Submitted batch job 2066485
+
+[Wed Mar 15 16:09:44 2023]
+Error in rule hisat2_align_reads:
+    jobid: 14
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_11_RNA_HISAT2_genome_aligned.sam
+    cluster_jobid: Submitted batch job 2066486
+
+[Wed Mar 15 16:09:44 2023]
+Error in rule hisat2_align_reads:
+    jobid: 3
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_19_RNA_HISAT2_genome_aligned.sam
+    cluster_jobid: Submitted batch job 2066487
+
+[Wed Mar 15 16:09:44 2023]
+Error in rule hisat2_align_reads:
+    jobid: 1
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_94_RNA_HISAT2_genome_aligned.sam
+    cluster_jobid: Submitted batch job 2066488
+
+[Wed Mar 15 16:09:44 2023]
+Error in rule hisat2_align_reads:
+    jobid: 4
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_97_RNA_HISAT2_genome_aligned.sam
+    cluster_jobid: Submitted batch job 2066489
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/.snakemake/log/2023-03-15T160934.610459.snakemake.log

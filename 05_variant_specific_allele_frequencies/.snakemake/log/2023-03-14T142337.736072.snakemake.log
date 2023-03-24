@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in line 30 of /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/hisat2_read_mapping.snakefile:
+Missing input files for rule hisat2_align_reads:
+/home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/01_somatic_mutation_calling/trimmed_fastqs/TESLA_19_trimmed_read2.fastq.gz
+/home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/01_somatic_mutation_calling/trimmed_fastqs/TESLA_19_trimmed_read1.fastq.gz

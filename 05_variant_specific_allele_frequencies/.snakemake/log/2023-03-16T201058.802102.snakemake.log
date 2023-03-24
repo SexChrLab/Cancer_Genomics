@@ -1,0 +1,185 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 15
+Job counts:
+	count	jobs
+	1	all
+	5	index_mkdup_bam
+	5	mark_duplicates
+	5	readgroup
+	16
+
+[Thu Mar 16 20:10:59 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    jobid: 24
+    wildcards: sample=TESLA_94
+    threads: 4
+
+Submitted job 24 with external jobid 'Submitted batch job 2089408'.
+
+[Thu Mar 16 20:10:59 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_3.picard_mkdup_metrics.txt
+    jobid: 23
+    wildcards: sample=TESLA_3
+    threads: 4
+
+Submitted job 23 with external jobid 'Submitted batch job 2089409'.
+
+[Thu Mar 16 20:10:59 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_11.picard_mkdup_metrics.txt
+    jobid: 21
+    wildcards: sample=TESLA_11
+    threads: 4
+
+Submitted job 21 with external jobid 'Submitted batch job 2089410'.
+
+[Thu Mar 16 20:10:59 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_19.picard_mkdup_metrics.txt
+    jobid: 25
+    wildcards: sample=TESLA_19
+    threads: 4
+
+Submitted job 25 with external jobid 'Submitted batch job 2089411'.
+
+[Thu Mar 16 20:10:59 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_97.picard_mkdup_metrics.txt
+    jobid: 22
+    wildcards: sample=TESLA_97
+    threads: 4
+
+Submitted job 22 with external jobid 'Submitted batch job 2089412'.
+[Thu Mar 16 21:32:44 2023]
+Finished job 22.
+1 of 16 steps (6%) done
+
+[Thu Mar 16 21:32:44 2023]
+rule readgroup:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam
+    jobid: 3
+    wildcards: sample=TESLA_97
+
+Submitted job 3 with external jobid 'Submitted batch job 2094835'.
+[Thu Mar 16 21:39:24 2023]
+Finished job 23.
+2 of 16 steps (12%) done
+
+[Thu Mar 16 21:39:24 2023]
+rule readgroup:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam
+    jobid: 14
+    wildcards: sample=TESLA_3
+
+Submitted job 14 with external jobid 'Submitted batch job 2095240'.
+[Thu Mar 16 21:55:06 2023]
+Finished job 24.
+3 of 16 steps (19%) done
+
+[Thu Mar 16 21:55:06 2023]
+rule readgroup:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam
+    jobid: 15
+    wildcards: sample=TESLA_94
+
+Submitted job 15 with external jobid 'Submitted batch job 2095883'.
+[Thu Mar 16 21:55:46 2023]
+Finished job 21.
+4 of 16 steps (25%) done
+
+[Thu Mar 16 21:55:46 2023]
+rule readgroup:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam
+    jobid: 1
+    wildcards: sample=TESLA_11
+
+[Thu Mar 16 21:55:46 2023]
+Finished job 3.
+5 of 16 steps (31%) done
+Submitted job 1 with external jobid 'Submitted batch job 2095905'.
+
+[Thu Mar 16 21:55:46 2023]
+Job 11: Indexing sorted BAM file.
+
+Submitted job 11 with external jobid 'Submitted batch job 2095906'.
+[Thu Mar 16 21:58:27 2023]
+Finished job 11.
+6 of 16 steps (38%) done
+[Thu Mar 16 22:24:59 2023]
+Finished job 14.
+7 of 16 steps (44%) done
+
+[Thu Mar 16 22:24:59 2023]
+Job 19: Indexing sorted BAM file.
+
+Submitted job 19 with external jobid 'Submitted batch job 2097179'.
+[Thu Mar 16 22:28:39 2023]
+Finished job 15.
+8 of 16 steps (50%) done
+
+[Thu Mar 16 22:28:39 2023]
+Job 17: Indexing sorted BAM file.
+
+Submitted job 17 with external jobid 'Submitted batch job 2097351'.
+[Thu Mar 16 22:31:20 2023]
+Finished job 19.
+9 of 16 steps (56%) done
+[Thu Mar 16 22:31:50 2023]
+Finished job 17.
+10 of 16 steps (62%) done
+[Thu Mar 16 22:33:20 2023]
+Finished job 1.
+11 of 16 steps (69%) done
+
+[Thu Mar 16 22:33:20 2023]
+Job 10: Indexing sorted BAM file.
+
+Submitted job 10 with external jobid 'Submitted batch job 2097540'.
+[Thu Mar 16 22:37:00 2023]
+Finished job 10.
+12 of 16 steps (75%) done
+[Fri Mar 17 02:28:45 2023]
+Finished job 25.
+13 of 16 steps (81%) done
+
+[Fri Mar 17 02:28:45 2023]
+rule readgroup:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam
+    jobid: 18
+    wildcards: sample=TESLA_19
+
+Submitted job 18 with external jobid 'Submitted batch job 2100702'.
+[Fri Mar 17 03:14:28 2023]
+Finished job 18.
+14 of 16 steps (88%) done
+
+[Fri Mar 17 03:14:28 2023]
+Job 5: Indexing sorted BAM file.
+
+Submitted job 5 with external jobid 'Submitted batch job 2100774'.
+[Fri Mar 17 03:18:08 2023]
+Finished job 5.
+15 of 16 steps (94%) done
+
+[Fri Mar 17 03:18:08 2023]
+localrule all:
+    input: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_3_RNA_HISAT2_genome_aligned.sam, /scratch/eknodel/TESLA/RNAseq/sam/TESLA_11_RNA_HISAT2_genome_aligned.sam, /scratch/eknodel/TESLA/RNAseq/sam/TESLA_19_RNA_HISAT2_genome_aligned.sam, /scratch/eknodel/TESLA/RNAseq/sam/TESLA_94_RNA_HISAT2_genome_aligned.sam, /scratch/eknodel/TESLA/RNAseq/sam/TESLA_97_RNA_HISAT2_genome_aligned.sam, /scratch/eknodel/TESLA/RNAseq/bam/TESLA_3_RNA_HISAT2_genome_aligned.bam, /scratch/eknodel/TESLA/RNAseq/bam/TESLA_11_RNA_HISAT2_genome_aligned.bam, /scratch/eknodel/TESLA/RNAseq/bam/TESLA_19_RNA_HISAT2_genome_aligned.bam, /scratch/eknodel/TESLA/RNAseq/bam/TESLA_94_RNA_HISAT2_genome_aligned.bam, /scratch/eknodel/TESLA/RNAseq/bam/TESLA_97_RNA_HISAT2_genome_aligned.bam, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam.bai, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam.bai, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam.bai, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam.bai, /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup_RG.bam.bai
+    jobid: 0
+
+[Fri Mar 17 03:18:08 2023]
+Finished job 0.
+16 of 16 steps (100%) done
+Complete log: /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/.snakemake/log/2023-03-16T201058.802102.snakemake.log

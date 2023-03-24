@@ -1,0 +1,92 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 15
+Job counts:
+	count	jobs
+	1	all
+	5	gunzip
+	5	hisat2_align_reads
+	5	index_mkdup_bam
+	5	mark_duplicates
+	5	readgroup
+	5	sam_to_bam
+	5	sort_bam
+	36
+
+[Wed Mar 15 15:39:39 2023]
+rule gunzip:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read1.fastq.gz, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read2.fastq.gz
+    output: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read2.fastq
+    jobid: 28
+    wildcards: sample=TESLA_19
+
+Submitted job 28 with external jobid 'Submitted batch job 2066157'.
+
+[Wed Mar 15 15:39:39 2023]
+rule gunzip:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read1.fastq.gz, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read2.fastq.gz
+    output: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read2.fastq
+    jobid: 25
+    wildcards: sample=TESLA_3
+
+Submitted job 25 with external jobid 'Submitted batch job 2066158'.
+
+[Wed Mar 15 15:39:39 2023]
+rule gunzip:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read1.fastq.gz, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read2.fastq.gz
+    output: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read2.fastq
+    jobid: 26
+    wildcards: sample=TESLA_97
+
+Submitted job 26 with external jobid 'Submitted batch job 2066159'.
+
+[Wed Mar 15 15:39:39 2023]
+rule gunzip:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read1.fastq.gz, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read2.fastq.gz
+    output: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read2.fastq
+    jobid: 27
+    wildcards: sample=TESLA_11
+
+Submitted job 27 with external jobid 'Submitted batch job 2066160'.
+
+[Wed Mar 15 15:39:39 2023]
+rule gunzip:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_94_trimmed_read1.fastq.gz, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_94_trimmed_read2.fastq.gz
+    output: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_94_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_94_trimmed_read2.fastq
+    jobid: 23
+    wildcards: sample=TESLA_94
+
+Submitted job 23 with external jobid 'Submitted batch job 2066161'.
+[Wed Mar 15 15:42:19 2023]
+Finished job 26.
+1 of 36 steps (3%) done
+
+[Wed Mar 15 15:42:19 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_97_RNA_HISAT2_genome_aligned.sam
+    jobid: 11
+    wildcards: sample=TESLA_97
+
+Submitted job 11 with external jobid 'Submitted batch job 2066235'.
+[Wed Mar 15 15:42:29 2023]
+Error in rule hisat2_align_reads:
+    jobid: 11
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_97_RNA_HISAT2_genome_aligned.sam
+    cluster_jobid: Submitted batch job 2066235
+
+[Wed Mar 15 15:44:09 2023]
+Finished job 25.
+2 of 36 steps (6%) done
+[Wed Mar 15 15:44:09 2023]
+Finished job 23.
+3 of 36 steps (8%) done
+[Wed Mar 15 15:45:40 2023]
+Finished job 27.
+4 of 36 steps (11%) done
+[Wed Mar 15 15:48:10 2023]
+Finished job 28.
+5 of 36 steps (14%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/.snakemake/log/2023-03-15T153939.511050.snakemake.log

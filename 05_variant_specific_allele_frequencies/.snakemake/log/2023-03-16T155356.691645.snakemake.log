@@ -1,0 +1,93 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 15
+Job counts:
+	count	jobs
+	1	all
+	5	index_mkdup_bam
+	5	mark_duplicates
+	5	readgroup
+	16
+
+[Thu Mar 16 15:53:56 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_19.picard_mkdup_metrics.txt
+    jobid: 22
+    wildcards: sample=TESLA_19
+    threads: 4
+
+Submitted job 22 with external jobid 'Submitted batch job 2084448'.
+
+[Thu Mar 16 15:53:56 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    jobid: 24
+    wildcards: sample=TESLA_94
+    threads: 4
+
+Submitted job 24 with external jobid 'Submitted batch job 2084449'.
+
+[Thu Mar 16 15:53:56 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_11.picard_mkdup_metrics.txt
+    jobid: 23
+    wildcards: sample=TESLA_11
+    threads: 4
+
+Submitted job 23 with external jobid 'Submitted batch job 2084450'.
+
+[Thu Mar 16 15:53:56 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_97.picard_mkdup_metrics.txt
+    jobid: 25
+    wildcards: sample=TESLA_97
+    threads: 4
+
+Submitted job 25 with external jobid 'Submitted batch job 2084451'.
+
+[Thu Mar 16 15:53:56 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_3.picard_mkdup_metrics.txt
+    jobid: 21
+    wildcards: sample=TESLA_3
+    threads: 4
+
+Submitted job 21 with external jobid 'Submitted batch job 2084452'.
+[Thu Mar 16 15:59:37 2023]
+Error in rule mark_duplicates:
+    jobid: 22
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_19.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2084448
+
+[Thu Mar 16 15:59:47 2023]
+Error in rule mark_duplicates:
+    jobid: 23
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_11.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2084450
+
+[Thu Mar 16 15:59:47 2023]
+Error in rule mark_duplicates:
+    jobid: 21
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_3.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2084452
+
+[Thu Mar 16 16:00:07 2023]
+Error in rule mark_duplicates:
+    jobid: 24
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2084449
+
+[Thu Mar 16 16:02:07 2023]
+Error in rule mark_duplicates:
+    jobid: 25
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_97.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2084451
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/.snakemake/log/2023-03-16T155356.691645.snakemake.log

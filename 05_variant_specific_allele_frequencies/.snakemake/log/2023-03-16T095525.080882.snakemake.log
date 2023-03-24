@@ -1,0 +1,96 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 15
+Job counts:
+	count	jobs
+	1	all
+	4	hisat2_align_reads
+	5	index_mkdup_bam
+	5	mark_duplicates
+	5	readgroup
+	5	sam_to_bam
+	5	sort_bam
+	30
+
+[Thu Mar 16 09:55:25 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_11_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_11_RNA_HISAT2_genome_aligned.sam
+    jobid: 18
+    wildcards: sample=TESLA_11
+
+Submitted job 18 with external jobid 'Submitted batch job 2082222'.
+
+[Thu Mar 16 09:55:25 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_97_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_97_RNA_HISAT2_genome_aligned.sam
+    jobid: 3
+    wildcards: sample=TESLA_97
+
+Submitted job 3 with external jobid 'Submitted batch job 2082223'.
+
+[Thu Mar 16 09:55:25 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_19_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_19_RNA_HISAT2_genome_aligned.sam
+    jobid: 20
+    wildcards: sample=TESLA_19
+
+Submitted job 20 with external jobid 'Submitted batch job 2082224'.
+
+[Thu Mar 16 09:55:25 2023]
+Job 1: Converting SAM to BAM, only outputting mapped reads.
+
+Submitted job 1 with external jobid 'Submitted batch job 2082225'.
+
+[Thu Mar 16 09:55:25 2023]
+rule hisat2_align_reads:
+    input: /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read1.fastq, /scratch/eknodel/TESLA/trimmed_fastqs/TESLA_3_trimmed_read2.fastq
+    output: /scratch/eknodel/TESLA/RNAseq/sam/TESLA_3_RNA_HISAT2_genome_aligned.sam
+    jobid: 17
+    wildcards: sample=TESLA_3
+
+Submitted job 17 with external jobid 'Submitted batch job 2082226'.
+[Thu Mar 16 10:10:46 2023]
+Finished job 1.
+1 of 30 steps (3%) done
+
+[Thu Mar 16 10:10:46 2023]
+Job 26: Sorting BAM file.
+
+Submitted job 26 with external jobid 'Submitted batch job 2083212'.
+[Thu Mar 16 10:32:57 2023]
+Finished job 26.
+2 of 30 steps (7%) done
+
+[Thu Mar 16 10:32:57 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    jobid: 21
+    wildcards: sample=TESLA_94
+    threads: 4
+
+Submitted job 21 with external jobid 'Submitted batch job 2083232'.
+[Thu Mar 16 10:33:07 2023]
+Error in rule mark_duplicates:
+    jobid: 21
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2083232
+
+[Thu Mar 16 10:57:19 2023]
+Finished job 3.
+3 of 30 steps (10%) done
+[Thu Mar 16 11:24:20 2023]
+Finished job 17.
+4 of 30 steps (13%) done
+[Thu Mar 16 11:55:52 2023]
+Finished job 18.
+5 of 30 steps (17%) done
+[Thu Mar 16 13:27:48 2023]
+Finished job 20.
+6 of 30 steps (20%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/.snakemake/log/2023-03-16T095525.080882.snakemake.log

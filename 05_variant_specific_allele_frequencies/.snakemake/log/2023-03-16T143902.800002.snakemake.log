@@ -1,0 +1,74 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 15
+Job counts:
+	count	jobs
+	1	all
+	5	index_mkdup_bam
+	5	mark_duplicates
+	5	readgroup
+	4	sort_bam
+	20
+
+[Thu Mar 16 14:39:02 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    jobid: 24
+    wildcards: sample=TESLA_94
+    threads: 4
+
+Submitted job 24 with external jobid 'Submitted batch job 2084010'.
+
+[Thu Mar 16 14:39:02 2023]
+Job 28: Sorting BAM file.
+
+Submitted job 28 with external jobid 'Submitted batch job 2084011'.
+
+[Thu Mar 16 14:39:03 2023]
+Job 26: Sorting BAM file.
+
+Submitted job 26 with external jobid 'Submitted batch job 2084012'.
+
+[Thu Mar 16 14:39:03 2023]
+Job 30: Sorting BAM file.
+
+Submitted job 30 with external jobid 'Submitted batch job 2084013'.
+
+[Thu Mar 16 14:39:03 2023]
+Job 27: Sorting BAM file.
+
+Submitted job 27 with external jobid 'Submitted batch job 2084014'.
+[Thu Mar 16 14:44:33 2023]
+Error in rule mark_duplicates:
+    jobid: 24
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2084010
+
+[Thu Mar 16 15:01:04 2023]
+Error in rule sort_bam:
+    jobid: 28
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_3_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    cluster_jobid: Submitted batch job 2084011
+
+[Thu Mar 16 15:01:04 2023]
+Error in rule sort_bam:
+    jobid: 30
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_97_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    cluster_jobid: Submitted batch job 2084013
+
+[Thu Mar 16 15:04:34 2023]
+Error in rule sort_bam:
+    jobid: 27
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_11_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    cluster_jobid: Submitted batch job 2084014
+
+[Thu Mar 16 15:20:25 2023]
+Error in rule sort_bam:
+    jobid: 26
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_19_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    cluster_jobid: Submitted batch job 2084012
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/.snakemake/log/2023-03-16T143902.800002.snakemake.log

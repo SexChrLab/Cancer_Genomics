@@ -1,0 +1,63 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 15
+Job counts:
+	count	jobs
+	1	all
+	5	index_mkdup_bam
+	5	mark_duplicates
+	5	readgroup
+	4	sam_to_bam
+	4	sort_bam
+	24
+
+[Thu Mar 16 13:43:17 2023]
+Job 18: Converting SAM to BAM, only outputting mapped reads.
+
+Submitted job 18 with external jobid 'Submitted batch job 2083784'.
+
+[Thu Mar 16 13:43:17 2023]
+rule mark_duplicates:
+    input: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord.bam
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    jobid: 21
+    wildcards: sample=TESLA_94
+    threads: 4
+
+Submitted job 21 with external jobid 'Submitted batch job 2083785'.
+
+[Thu Mar 16 13:43:18 2023]
+Job 4: Converting SAM to BAM, only outputting mapped reads.
+
+Submitted job 4 with external jobid 'Submitted batch job 2083786'.
+
+[Thu Mar 16 13:43:18 2023]
+Job 9: Converting SAM to BAM, only outputting mapped reads.
+
+Submitted job 9 with external jobid 'Submitted batch job 2083787'.
+
+[Thu Mar 16 13:43:18 2023]
+Job 15: Converting SAM to BAM, only outputting mapped reads.
+
+Submitted job 15 with external jobid 'Submitted batch job 2083788'.
+[Thu Mar 16 13:44:48 2023]
+Error in rule mark_duplicates:
+    jobid: 21
+    output: /scratch/eknodel/TESLA/RNAseq/sorted_bam/TESLA_94_RNA_HISAT2_genome_aligned_sortedbycoord_mkdup.bam, TESLA_94.picard_mkdup_metrics.txt
+    cluster_jobid: Submitted batch job 2083785
+
+[Thu Mar 16 13:53:28 2023]
+Finished job 18.
+1 of 24 steps (4%) done
+[Thu Mar 16 13:54:48 2023]
+Finished job 15.
+2 of 24 steps (8%) done
+[Thu Mar 16 14:01:09 2023]
+Finished job 9.
+3 of 24 steps (12%) done
+[Thu Mar 16 14:08:49 2023]
+Finished job 4.
+4 of 24 steps (17%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/eknodel/TESLA_Cancer_Genomics/Cancer_Genomics/05_variant_specific_allele_frequencies/.snakemake/log/2023-03-16T134317.743465.snakemake.log
