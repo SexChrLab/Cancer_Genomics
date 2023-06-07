@@ -61,32 +61,3 @@ rule select_pass_variants:
         {params.gatk} SelectVariants -R {input.ref} -V {input.snvs} --exclude-filtered -O {output.snvs};
         {params.gatk} SelectVariants -R {input.ref} -V {input.indels} --exclude-filtered -O {output.indels}
         """
-
-rule gunzip:
-    input:
-        snvs = "strelka/{subject}/results/variants/somatic.snvs.pass.vcf.gz",
-        indels = "strelka/{subject}/results/variants/somatic.indels.pass.vcf.gz"
-    output:
-        snvs = "strelka/{subject}/results/variants/somatic.snvs.pass.vcf",
-        indels = "strelka/{subject}/results/variants/somatic.indels.pass.vcf"
-    shell:
-        """
-        gunzip -c {input.snvs} > {output.snvs};
-        gunzip -c {input.indels} > {output.indels}
-        """
-
-rule FP_filter:
-    input:
-        ref = os.path.join(config["ref_dir"], config["ref_basename"] + ".fa"),
-        snvs = "strelka/{subject}/results/variants/somatic.snvs.pass.vcf",
-        indels = "strelka/{subject}/results/variants/somatic.indels.pass.vcf"
-    output:
-        snvs = "strelka/{subject}/results/variants/somatic.snvs.pass.vcf_TP_after_filtered_sorted.vcf",
-        indels = "strelka/{subject}/results/variants/somatic.indels.pass.vcf_TP_after_filtered_sorted.vcf"
-    params:
-        FP = "~/miniconda3/envs/cancergenomics/lib/FPfilter"
-    shell:
-        """
-        FPfilter -v {input.snvs} -p {params.FP};
-        FPfilter -v {input.indels} -p {params.FP}
-        """

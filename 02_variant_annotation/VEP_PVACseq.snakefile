@@ -10,6 +10,17 @@ rule all:
         expand("variants/{sample}_merged_vep.vcf", sample=config["all_subjects"]), # run VEP
         expand("peptides/{sample}_vep.17.peptide", sample=config["all_subjects"]) # run pvacseq
 
+rule combine_strelka:
+    input:
+        strelka = os.path.join("../01_somatic_mutation_calling/strelka/{sample}/results/variants/somatic.snvs.pass.vcf.gz"),
+        strelka_indels = os.path.join("../01_somatic_mutation_calling/strelka/{sample}/results/variants/somatic.indels.pass.vcf.gz") 
+    output:
+        strelka = os.path.join("../01_somatic_mutation_calling/strelka/{sample}/results/variants/somatic.pass.vcf"),
+    shell:
+        """
+        bcftools concat -a {input.strelka_indels} {input.strelka} -o {output.strelka}
+        """
+
 rule gunzip:
     input:
         gatk = os.path.join("../01_somatic_mutation_calling/gatk_mutect2/{sample}.somatic.filtered.pass.vcf.gz")
@@ -23,14 +34,14 @@ rule gunzip:
 rule generate_input:
     input:
         gatk = os.path.join("../01_somatic_mutation_calling/gatk_mutect2/{sample}.somatic.filtered.pass.vcf"),
-        strelka = os.path.join("../01_somatic_mutation_calling/strelka/{sample}/results/variants/somatic.snvs.pass.vcf"),
-        strelka_indels = os.path.join("../01_somatic_mutation_calling/strelka/{sample}/results/variants/somatic.indels.pass.vcf") 
+        strelka = os.path.join("../01_somatic_mutation_calling/strelka/{sample}/results/variants/somatic.pass.vcf")
     output:
         vep = os.path.join("variants/{sample}_merged.vcf")
     shell: 
         """
-        python prepare_input_for_vep.py --vcf_filenames \
-        {input.gatk},{input.strelka},{input.strelka_indels} \
+        python merge_Mutect2_Strelka2_variants.py \
+        --gatk_file {input.gatk} \
+        --strelka_file {input.strelka} \
         --vep_format_fn {output.vep}
         """
 

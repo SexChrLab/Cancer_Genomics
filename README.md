@@ -1,6 +1,6 @@
 # Cancer_Genomics
 
-**Last updated:** 3/24/2023
+**Last updated:** 6/7/2023
 
 **Updated by:** Elizabeth Borden
 
@@ -89,18 +89,16 @@ Snakefile `VEP_PVACseq.snakefile` performs the following steps:
 
 1. Prepare file as input to the program Variant Effect Predictor (VEP)
     - GATK file is unzipped
-    - Runs the script `prepare_input_for_vep.py`
-    - As currently written, the snakemake automatically uses the outputs of GATK and Strelka only and takes the overlap of these two programs. 
-    - Other available options are:  
-        - One vcf file can be provided as input, at which pointthe script converts the variant in VCF file format to format that can be used for VEP:
+    - Runs the script `merge_Mutect2_Strelka2_variants.py`
+    - As currently written, the snakemake automatically uses the outputs of GATK and Strelka only and takes the overlap of these two programs. **Update 6/7:** A bug was discovered in the original script used here and we determined that multinucleotide variants were being discarded. We have therefore created a new script that rescues these multinuecleotide variants. However, as of 6/7 this only works for the overlap of GATK Mutect2 and Strelka2. The original file `prepare_input_for_vep.py` is still provided, but should not be used for overlapping variant callers
+    - File overlap is also formatted in a VCF file format that can be used for VEP:
             - Column 1: chromosome name
             - Column 2: Position
             - Column 3 : "."
             - Column 4: reference nucleotide
             - Column 5: alternate nucleotide
             - Column 6, 7, and 8: "."
-        - Additional VCF files can be merged by adding them to the list with a comma and no space. Note that the program will select the overlap of any two of the VCF files provided.  
-    - This script also automatically outputs a file called `number_of_variants_summary.txt` that list the number of variants per vcf file (if there are more than 1 vcf files) and the number of variants that are shared in at least 2 vcf files 
+    - This script also automatically outputs a file called `number_of_variants_summary.txt` that list the number of variants per vcf file and the number of variants that are shared in at least 2 vcf files 
 
 2. Runs Variant Effect Predictor (VEP) - **Note:** VEP can be difficult to download. Detailed instructions included below. 
     - Returns annotated variants 
