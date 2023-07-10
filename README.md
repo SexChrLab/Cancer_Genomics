@@ -144,6 +144,29 @@ All of the following steps are performed with `netMHCpan-snakemake.py`:
 
 ## Instructions for installing the Variant Effects Predictor
 
+### With Conda
+
+1. Create VEP environment
+```
+conda create --name vep_env
+```
+
+2. Install VEP
+```
+conda install -c bioconda ensembl-vep -n vep_env
+```
+
+3. Download cache
+```
+cd $HOME/.vep
+curl -O https://ftp.ensembl.org/pub/release-109/variation/indexed_vep_cache/homo_sapiens_vep_109_GRCh38.tar.gz
+tar xzf homo_sapiens_vep_109_GRCh38.tar.gz
+```
+
+4. Add plugins to path - move from the external scripts directory of this repository to ~/.vep/Plugins
+
+### Directly from GitHub Source
+
 * See Ensembl directions: https://uswest.ensembl.org/info/docs/tools/vep/script/vep_download.html
 
 1. Before installing VEP, download or load Perl 5 (eg. perl/5.26.1 module in ASU Agave)
